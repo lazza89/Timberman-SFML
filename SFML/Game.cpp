@@ -1,12 +1,13 @@
 #include "Game.h"
-Game::Game(): window("Chapter 5", sf::Vector2u(800, 600)), stateManager(&context){
+Game::Game(): window("Chapter 5", sf::Vector2u(1280, 720)), stateManager(&context){
 	clock.restart();
 	srand(time(nullptr));
 
-	context.wind = &window;
+	context.window = &window;
 	context.eventManager = window.GetEventManager();
+	context.textureManager = &textureManager;
 
-	stateManager.SwitchTo(StateType::Intro);
+	stateManager.SwitchTo(StateType::Game);
 }
 
 Game::~Game(){ }

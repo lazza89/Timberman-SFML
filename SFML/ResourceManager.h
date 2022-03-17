@@ -49,8 +49,7 @@ public:
 	void PurgeResources(){
 		std::cout << "Purging all resources:" << std::endl;
 		while(resources.begin() != resources.end()){
-			std::cout << "Removing: " 
-				<< resources.begin()->first << std::endl;
+			std::cout << "Removing: " << resources.begin()->first << std::endl;
 			delete resources.begin()->second.first;
 			resources.erase(resources.begin());
 		}
@@ -94,7 +93,6 @@ private:
 		std::cerr << "! Failed loading the path file: " << pathFile << std::endl;
 	}
 
-	std::unordered_map<std::string, 
-		std::pair<T*, unsigned int>> resources;
+	std::unordered_map<std::string, std::pair<T*, unsigned int>> resources;
 	std::unordered_map<std::string, std::string> paths;
 };

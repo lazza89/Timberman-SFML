@@ -9,7 +9,7 @@ State_Intro::~State_Intro(){}
 void State_Intro::OnCreate(){
 	timePassed = 0.0f;
 
-	sf::Vector2u windowSize = stateMgr->GetContext()->wind->GetRenderWindow()->getSize();
+	sf::Vector2u windowSize = stateMgr->GetContext()->window->GetRenderWindow()->getSize();
 
 	introTexture.loadFromFile("Resources/Texture/bee.png");
 	introSprite.setTexture(introTexture);
@@ -46,7 +46,7 @@ void State_Intro::Update(const sf::Time& time){
 }
 
 void State_Intro::Draw(){
-	sf::RenderWindow* window = stateMgr->GetContext()->wind->GetRenderWindow();
+	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
 
 	window->draw(introSprite);
 	if(timePassed >= 5.0f){

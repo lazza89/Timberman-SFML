@@ -34,6 +34,6 @@ void State_GameOver::Update(const sf::Time& time){
 }
 
 void State_GameOver::Draw(){
-	sf::RenderWindow* window = stateMgr->GetContext()->wind->GetRenderWindow();
+	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
 	window->draw(text);
 }

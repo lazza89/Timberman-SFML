@@ -1,16 +1,16 @@
 #pragma once
-#include <SFML/System/Time.hpp>
-#include "StateManager.h"
+#include <SFML/Graphics.hpp>
+
+class StateManager;
 
 class GameObject {
 public:
-	GameObject(StateManager* manager) : stateMgr(manager){}
-	virtual ~GameObject() = 0;
+	GameObject(StateManager* manager = nullptr) : stateMgr(manager){}
+	virtual ~GameObject() {}
 
-	virtual void Render() = 0;
+	virtual void Draw() = 0;
 	virtual void Update(const sf::Time& deltaTime) = 0;
 
 protected:
 	StateManager* stateMgr;
-
 };

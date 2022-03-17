@@ -85,14 +85,14 @@ void State_MainMenu::MouseClick(EventDetails* details) {
 				// Credits state.
 			}
 			else if (i == 2) {
-				stateMgr->GetContext()->wind->Close();
+				stateMgr->GetContext()->window->Close();
 			}
 		}
 	}
 }
 
 void State_MainMenu::Draw() {
-	sf::RenderWindow* window = stateMgr->GetContext()->wind->GetRenderWindow();
+	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
 	window->draw(text);
 	for (int i = 0; i < 3; ++i) {
 		window->draw(rects[i]);

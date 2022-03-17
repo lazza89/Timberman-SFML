@@ -4,7 +4,7 @@
 
 class TextureManager: public ResourceManager<TextureManager, sf::Texture>{
 public:
-	TextureManager(): ResourceManager("textures.cfg"){}
+	TextureManager(): ResourceManager("Resources/textures.cfg"){}
 
 	sf::Texture* Load(const std::string& path){
 		sf::Texture* texture = new sf::Texture();
