@@ -11,7 +11,7 @@ void State_Game::OnCreate() {
 	sprite.setTexture(texture);
 	sprite.setPosition(0, 0);
 	increment = sf::Vector2f(400.0f, 400.0f);
-
+	
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
 	evMgr->AddCallback(StateType::Game, "Key_P", &State_Game::Pause, this);
