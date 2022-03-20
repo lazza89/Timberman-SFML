@@ -4,6 +4,7 @@
 #include "EventManager.h"
 #include "Bee.h"
 #include "Cloud.h"
+#include "Tree.h"
 
 class State_Game : public BaseState{
 public:
@@ -23,6 +24,8 @@ public:
 	void Pause(EventDetails* details);
 private:
 	sf::Sprite background;
+	Tree tree;
+
 	std::vector <std::unique_ptr<Bee>> beeVector;
 	std::vector <std::unique_ptr<Cloud>> cloudVector;
 };

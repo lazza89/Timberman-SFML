@@ -2,7 +2,8 @@
 #include "StateManager.h"
 
 State_Game::State_Game(StateManager* stateManager) :
-	BaseState(stateManager)
+	BaseState(stateManager),
+	tree(stateManager)
 {}
 
 State_Game::~State_Game() {}
@@ -46,6 +47,7 @@ void State_Game::Draw() {
 	for (auto& itr : cloudVector) {
 		itr->Draw();
 	}
+	tree.Draw();
 	for (auto& itr : beeVector) {
 		itr->Draw();
 	}
