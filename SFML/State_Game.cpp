@@ -30,6 +30,9 @@ void State_Game::OnDestroy() {
 }
 
 void State_Game::Update(const sf::Time& time) {
+	sf::Vector2f targeSize = stateMgr->GetContext()->window->GetRenderWindow()->getView().getSize();
+	background.setScale(targeSize.x / background.getLocalBounds().width, targeSize.y / background.getLocalBounds().height);
+
 	for (auto& itr : cloudVector) {
 		itr->Update(time);
 	}
@@ -39,6 +42,7 @@ void State_Game::Update(const sf::Time& time) {
 }
 
 void State_Game::Draw() {
+	stateMgr->GetContext()->window->GetRenderWindow()->draw(background);
 	for (auto& itr : cloudVector) {
 		itr->Draw();
 	}
