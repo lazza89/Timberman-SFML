@@ -34,6 +34,8 @@ void State_Game::Update(const sf::Time& time) {
 	sf::Vector2f targeSize = stateMgr->GetContext()->window->GetRenderWindow()->getView().getSize();
 	background.setScale(targeSize.x / background.getLocalBounds().width, targeSize.y / background.getLocalBounds().height);
 
+	tree.Update(time);
+
 	for (auto& itr : cloudVector) {
 		itr->Update(time);
 	}

@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "Branch.h"
+#include <memory>
 
 class Tree : public GameObject
 {
@@ -14,6 +16,6 @@ private:
 	sf::RenderWindow* window;
 	sf::Sprite sprite;
 
-
+	std::vector<std::unique_ptr<Branch>> branchVector;
 };
 
