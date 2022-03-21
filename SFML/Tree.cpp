@@ -29,7 +29,13 @@ void Tree::Draw()
 	window->draw(sprite);
 }
 
-void Tree::Update(const sf::Time& deltaTime)
-{
+void Tree::Update(const sf::Time& deltaTime){}
 
+void Tree::Chop()
+{
+	branchVector.pop_back();
+	for (auto& itr : branchVector) {
+		itr->SetPosition(itr->GetPosition() + sf::Vector2f(0, 100));
+	}
+	branchVector.push_front(std::make_unique<Branch>(stateMgr, sf::Vector2f(sprite.getPosition().x, 0)));	
 }

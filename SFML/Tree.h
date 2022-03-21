@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Branch.h"
 #include <memory>
+#include <deque>
 
 class Tree : public GameObject
 {
@@ -12,10 +13,12 @@ public:
 	void Draw() override;
 	void Update(const sf::Time& deltaTime) override;
 
+	void Chop();
+
 private:
 	sf::RenderWindow* window;
 	sf::Sprite sprite;
 
-	std::vector<std::unique_ptr<Branch>> branchVector;
+	std::deque<std::unique_ptr<Branch>> branchVector;
 };
 

@@ -20,6 +20,7 @@ public:
 
 private:
 	sf::Vector2f position;
+	BranchDirection direction;
 	sf::RenderWindow* window;
 	sf::Sprite sprite;
 

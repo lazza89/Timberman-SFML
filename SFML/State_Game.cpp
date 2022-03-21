@@ -60,7 +60,8 @@ void State_Game::MainMenu(EventDetails* details) {
 }
 
 void State_Game::Pause(EventDetails* details) {
-	stateMgr->SwitchTo(StateType::Paused);
+	tree.Chop();
+	//stateMgr->SwitchTo(StateType::Paused);
 }
 
 void State_Game::Activate() {}
