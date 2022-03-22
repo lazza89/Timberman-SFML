@@ -1,8 +1,10 @@
 #include "State_GameOver.h"
 #include "StateManager.h"
 
-State_GameOver::State_GameOver(StateManager* stateManager)
-	: BaseState(stateManager){}
+State_GameOver::State_GameOver(StateManager* stateManager) : 
+	BaseState(stateManager),
+	elapsed(0)
+{}
 
 State_GameOver::~State_GameOver(){}
 

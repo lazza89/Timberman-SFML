@@ -16,12 +16,15 @@ public:
 	void ChopLeft();
 	void ChopRight();
 
+	bool IsDead();
+
 private:
 	StateManager* stateMgr;
 	sf::RenderWindow* window;
 
 	Player player;
 	Tree tree;
+	bool isDead;
 
 };
 

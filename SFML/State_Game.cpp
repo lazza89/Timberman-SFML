@@ -34,9 +34,14 @@ void State_Game::OnDestroy() {
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
 	evMgr->RemoveCallback(StateType::Game, "Key_Escape");
 	evMgr->RemoveCallback(StateType::Game, "Key_P");
+	evMgr->RemoveCallback(StateType::Game, "Key_Left");
+	evMgr->RemoveCallback(StateType::Game, "Key_Right");
 }
 
 void State_Game::Update(const sf::Time& time) {
+	if (playerGame.IsDead()) {
+		stateMgr->SwitchTo(StateType::GameOver);
+	}
 
 	for (auto& itr : cloudVector) {
 		itr->Update(time);
@@ -63,7 +68,7 @@ void State_Game::MainMenu(EventDetails* details) {
 }
 
 void State_Game::Pause(EventDetails* details) {
-	//stateMgr->SwitchTo(StateType::Paused);
+	stateMgr->SwitchTo(StateType::Paused);
 }
 
 void State_Game::MoveLeftAndChop(EventDetails* details)

@@ -16,6 +16,7 @@ public:
 	void Update(const sf::Time& deltaTime) override;
 
 	void SetPosition(const sf::Vector2f& pos, PlayerDirection direction);
+	PlayerDirection GetDirection();
 
 private:
 	sf::RenderWindow* window;

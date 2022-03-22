@@ -36,3 +36,8 @@ void Player::SetPosition(const sf::Vector2f& pos, PlayerDirection direction)
 	}
 	sprite.setPosition(pos);
 }
+
+PlayerDirection Player::GetDirection()
+{
+	return direction;
+}

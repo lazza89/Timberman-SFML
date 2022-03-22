@@ -39,6 +39,12 @@ sf::Vector2f Tree::GetBaseTreePos()
 	return sprite.getPosition() + sf::Vector2f(0, sprite.getGlobalBounds().height * 0.5);
 }
 
+BranchDirection Tree::GetFirstBranchDirection()
+{
+	auto itr = branchVector.rbegin();
+	return (*itr)->GetDirection();
+}
+
 const std::list<std::unique_ptr<Branch>>& Tree::GetBranchVector()
 {
 	return branchVector;

@@ -15,6 +15,7 @@ public:
 
 	sf::Vector2f GetPosition();
 	sf::Vector2f GetBaseTreePos();
+	BranchDirection GetFirstBranchDirection();
 	const std::list<std::unique_ptr<Branch>>& GetBranchVector();
 	void Chop();
 
