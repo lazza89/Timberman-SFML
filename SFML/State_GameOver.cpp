@@ -13,11 +13,10 @@ void State_GameOver::OnCreate(){
 	font.loadFromFile("Resources/KOMIKAP_.ttf");
 	text.setFont(font);
 	text.setCharacterSize(16);
-	text.setString("You beat the game! Congratulations!");
+	text.setString("You are dead");
 	text.setFillColor(sf::Color::White);
-	text.setOrigin(text.getLocalBounds().width / 2, 
-		text.getLocalBounds().height / 2);
-	text.setPosition(400, 300);
+	text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
+	text.setPosition(stateMgr->GetContext()->window->GetRenderWindow()->getSize().x * 0.5, stateMgr->GetContext()->window->GetRenderWindow()->getSize().y * 0.5);
 
 	stateMgr->Remove(StateType::Game);
 }
