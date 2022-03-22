@@ -5,6 +5,7 @@
 #include "Bee.h"
 #include "Cloud.h"
 #include "Tree.h"
+#include "Player.h"
 
 class State_Game : public BaseState{
 public:
@@ -22,6 +23,11 @@ public:
 
 	void MainMenu(EventDetails* details);
 	void Pause(EventDetails* details);
+
+	void MoveLeftAndChop(EventDetails* details);
+	void MoveRightAndChop(EventDetails* details);
+
+
 private:
 	sf::Sprite background;
 	Tree tree;

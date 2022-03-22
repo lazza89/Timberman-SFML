@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Branch.h"
 #include <memory>
-#include <deque>
+#include <list>
 
 class Tree : public GameObject
 {
@@ -19,6 +19,6 @@ private:
 	sf::RenderWindow* window;
 	sf::Sprite sprite;
 
-	std::deque<std::unique_ptr<Branch>> branchVector;
+	std::list<std::unique_ptr<Branch>> branchVector;
 };
 

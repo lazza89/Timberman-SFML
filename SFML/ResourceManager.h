@@ -30,10 +30,17 @@ public:
 			++res->second;
 			return true;
 		}
+		
 		auto path = paths.find(id);
-		if (path == paths.end()){ return false; }
+		if (path == paths.end()){
+			std::cout << "Cannot find resources with id: " << id << "\n";
+			return false;
+		}
 		T* resource = Load(path->second);
-		if (!resource){ return false; }
+		if (!resource){ 
+			std::cout << "Cannot find resources with id: " << id << "\n";
+			return false;
+		}
 		resources.emplace(id, std::make_pair(resource, 1));
 		return true;
 	}

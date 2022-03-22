@@ -17,6 +17,7 @@ public:
 
 	void SetPosition(const sf::Vector2f& position);
 	const sf::Vector2f GetPosition();
+	BranchDirection GetDirection();
 
 private:
 	sf::Vector2f position;

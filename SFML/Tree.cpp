@@ -17,9 +17,7 @@ Tree::Tree(StateManager* manager) :
 	}
 }
 
-Tree::~Tree()
-{
-}
+Tree::~Tree(){}
 
 void Tree::Draw()
 {

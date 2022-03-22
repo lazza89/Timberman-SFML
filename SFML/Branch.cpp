@@ -53,3 +53,8 @@ const sf::Vector2f Branch::GetPosition()
 {
 	return position;
 }
+
+BranchDirection Branch::GetDirection()
+{
+	return direction;
+}
