@@ -14,7 +14,7 @@ void State_Paused::OnCreate(){
 	text.setCharacterSize(14);
 	text.setStyle(sf::Text::Bold);
 
-	sf::Vector2u windowSize = stateMgr->GetContext()->wind->GetRenderWindow()->getSize();
+	sf::Vector2u windowSize = stateMgr->GetContext()->window->GetRenderWindow()->getSize();
 
 	sf::FloatRect textRect = text.getLocalBounds();
 	text.setOrigin(textRect.left + textRect.width / 2.0f,
@@ -35,7 +35,7 @@ void State_Paused::OnDestroy(){
 }
 
 void State_Paused::Draw(){
-	sf::RenderWindow* wind = stateMgr->GetContext()->wind->GetRenderWindow();
+	sf::RenderWindow* wind = stateMgr->GetContext()->window->GetRenderWindow();
 	wind->draw(rect);
 	wind->draw(text);
 }

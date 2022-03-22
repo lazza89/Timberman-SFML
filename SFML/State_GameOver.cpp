@@ -1,8 +1,10 @@
 #include "State_GameOver.h"
 #include "StateManager.h"
 
-State_GameOver::State_GameOver(StateManager* stateManager)
-	: BaseState(stateManager){}
+State_GameOver::State_GameOver(StateManager* stateManager) : 
+	BaseState(stateManager),
+	elapsed(0)
+{}
 
 State_GameOver::~State_GameOver(){}
 
@@ -34,6 +36,6 @@ void State_GameOver::Update(const sf::Time& time){
 }
 
 void State_GameOver::Draw(){
-	sf::RenderWindow* window = stateMgr->GetContext()->wind->GetRenderWindow();
+	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
 	window->draw(text);
 }

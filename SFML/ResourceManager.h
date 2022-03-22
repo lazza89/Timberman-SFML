@@ -30,10 +30,17 @@ public:
 			++res->second;
 			return true;
 		}
+		
 		auto path = paths.find(id);
-		if (path == paths.end()){ return false; }
+		if (path == paths.end()){
+			std::cout << "Cannot find resources with id: " << id << "\n";
+			return false;
+		}
 		T* resource = Load(path->second);
-		if (!resource){ return false; }
+		if (!resource){ 
+			std::cout << "Cannot find resources with id: " << id << "\n";
+			return false;
+		}
 		resources.emplace(id, std::make_pair(resource, 1));
 		return true;
 	}
@@ -49,8 +56,7 @@ public:
 	void PurgeResources(){
 		std::cout << "Purging all resources:" << std::endl;
 		while(resources.begin() != resources.end()){
-			std::cout << "Removing: " 
-				<< resources.begin()->first << std::endl;
+			std::cout << "Removing: " << resources.begin()->first << std::endl;
 			delete resources.begin()->second.first;
 			resources.erase(resources.begin());
 		}
@@ -94,7 +100,6 @@ private:
 		std::cerr << "! Failed loading the path file: " << pathFile << std::endl;
 	}
 
-	std::unordered_map<std::string, 
-		std::pair<T*, unsigned int>> resources;
+	std::unordered_map<std::string, std::pair<T*, unsigned int>> resources;
 	std::unordered_map<std::string, std::string> paths;
 };

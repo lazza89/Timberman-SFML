@@ -1,6 +1,10 @@
 #pragma once
+#include <memory>
 #include "BaseState.h"
 #include "EventManager.h"
+#include "Bee.h"
+#include "Cloud.h"
+#include "PlayerGameHandler.h"
 
 class State_Game : public BaseState{
 public:
@@ -18,8 +22,15 @@ public:
 
 	void MainMenu(EventDetails* details);
 	void Pause(EventDetails* details);
+
+	void MoveLeftAndChop(EventDetails* details);
+	void MoveRightAndChop(EventDetails* details);
+
+
 private:
-	sf::Texture texture;
-	sf::Sprite sprite;
-	sf::Vector2f increment;
+	sf::Sprite background;
+	PlayerGameHandler playerGame;
+
+	std::vector <std::unique_ptr<Bee>> beeVector;
+	std::vector <std::unique_ptr<Cloud>> cloudVector;
 };

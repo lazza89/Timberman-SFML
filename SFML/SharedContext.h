@@ -1,10 +1,15 @@
 #pragma once
 #include "Window.h"
 #include "EventManager.h"
-struct SharedContext{
-	SharedContext()
-		:wind(nullptr),
-		eventManager(nullptr){}
-	Window* wind;
+#include "TextureManager.h"
+struct SharedContext {
+	SharedContext() :
+		window(nullptr),
+		eventManager(nullptr),
+		textureManager(nullptr)
+	{}
+
+	Window* window;
 	EventManager* eventManager;
+	TextureManager* textureManager;
 };

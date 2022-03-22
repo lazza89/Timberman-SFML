@@ -22,9 +22,15 @@
     <ClInclude Include="Anim_Base.h" />
     <ClInclude Include="Anim_Directional.h" />
     <ClInclude Include="BaseState.h" />
+    <ClInclude Include="Bee.h" />
+    <ClInclude Include="Branch.h" />
+    <ClInclude Include="Cloud.h" />
     <ClInclude Include="Directions.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerGameHandler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SharedContext.h" />
     <ClInclude Include="SpriteSheet.h" />
@@ -35,15 +41,20 @@
     <ClInclude Include="State_MainMenu.h" />
     <ClInclude Include="State_Paused.h" />
     <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Anim_Base.cpp" />
     <ClCompile Include="Anim_Directional.cpp" />
+    <ClCompile Include="Bee.cpp" />
+    <ClCompile Include="Branch.cpp" />
+    <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerGameHandler.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="State_Game.cpp" />
@@ -51,6 +62,7 @@
     <ClCompile Include="State_Intro.cpp" />
     <ClCompile Include="State_MainMenu.cpp" />
     <ClCompile Include="State_Paused.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

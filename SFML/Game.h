@@ -3,6 +3,7 @@
 #include "EventManager.h"
 #include "StateManager.h"
 #include "SharedContext.h"
+#include "TextureManager.h"
 #include <iostream>
 
 class Game{
@@ -21,6 +22,7 @@ private:
 	SharedContext context;
 	Window window;
 	StateManager stateManager;
+	TextureManager textureManager;
 	sf::Clock clock;
 	sf::Time elapsed;
 	void RestartClock();
