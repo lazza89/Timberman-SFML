@@ -2,8 +2,7 @@
 #include "StateManager.h"
 
 Branch::Branch(StateManager* manager, const sf::Vector2f& pos) :
-	GameObject(manager),
-	position(pos)
+	GameObject(manager)
 {
 	window = stateMgr->GetContext()->window->GetRenderWindow();
 	stateMgr->GetContext()->textureManager->RequireResource("branch");
@@ -26,7 +25,7 @@ Branch::Branch(StateManager* manager, const sf::Vector2f& pos) :
 		sprite.setScale(0.8, 0.8);
 	}
 
-	sprite.setPosition(position);
+	sprite.setPosition(pos);
 }
 
 Branch::~Branch()
@@ -45,13 +44,12 @@ void Branch::Update(const sf::Time& deltaTime)
 
 void Branch::SetPosition(const sf::Vector2f& position)
 {
-	this->position = position;
 	sprite.setPosition(position);
 }
 
-const sf::Vector2f Branch::GetPosition()
+sf::Vector2f Branch::GetPosition()
 {
-	return position;
+	return sprite.getPosition();
 }
 
 BranchDirection Branch::GetDirection()

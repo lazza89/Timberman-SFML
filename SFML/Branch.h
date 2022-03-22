@@ -16,11 +16,10 @@ public:
 	void Update(const sf::Time& deltaTime) override;
 
 	void SetPosition(const sf::Vector2f& position);
-	const sf::Vector2f GetPosition();
+	sf::Vector2f GetPosition();
 	BranchDirection GetDirection();
 
 private:
-	sf::Vector2f position;
 	BranchDirection direction;
 	sf::RenderWindow* window;
 	sf::Sprite sprite;

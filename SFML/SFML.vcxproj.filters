@@ -108,6 +108,9 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerGameHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGameHandler.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

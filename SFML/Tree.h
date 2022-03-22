@@ -13,6 +13,9 @@ public:
 	void Draw() override;
 	void Update(const sf::Time& deltaTime) override;
 
+	sf::Vector2f GetPosition();
+	sf::Vector2f GetBaseTreePos();
+	const std::list<std::unique_ptr<Branch>>& GetBranchVector();
 	void Chop();
 
 private:

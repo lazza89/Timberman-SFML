@@ -29,6 +29,21 @@ void Tree::Draw()
 
 void Tree::Update(const sf::Time& deltaTime){}
 
+sf::Vector2f Tree::GetPosition()
+{
+	return sprite.getPosition();
+}
+
+sf::Vector2f Tree::GetBaseTreePos()
+{
+	return sprite.getPosition() + sf::Vector2f(0, sprite.getGlobalBounds().height * 0.5);
+}
+
+const std::list<std::unique_ptr<Branch>>& Tree::GetBranchVector()
+{
+	return branchVector;
+}
+
 void Tree::Chop()
 {
 	branchVector.pop_back();

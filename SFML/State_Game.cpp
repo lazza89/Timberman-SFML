@@ -3,7 +3,7 @@
 
 State_Game::State_Game(StateManager* stateManager) :
 	BaseState(stateManager),
-	tree(stateManager)
+	playerGame(stateManager)
 {}
 
 State_Game::~State_Game() {}
@@ -38,10 +38,10 @@ void State_Game::OnDestroy() {
 
 void State_Game::Update(const sf::Time& time) {
 
-	tree.Update(time);
 	for (auto& itr : cloudVector) {
 		itr->Update(time);
 	}
+	playerGame.Update(time);
 	for (auto& itr : beeVector) {
 		itr->Update(time);
 	}
@@ -52,11 +52,10 @@ void State_Game::Draw() {
 	for (auto& itr : cloudVector) {
 		itr->Draw();
 	}
-	tree.Draw();
+	playerGame.Draw();
 	for (auto& itr : beeVector) {
 		itr->Draw();
 	}
-	player.Draw();
 }
 
 void State_Game::MainMenu(EventDetails* details) {
@@ -64,18 +63,17 @@ void State_Game::MainMenu(EventDetails* details) {
 }
 
 void State_Game::Pause(EventDetails* details) {
-	tree.Chop();
 	//stateMgr->SwitchTo(StateType::Paused);
 }
 
 void State_Game::MoveLeftAndChop(EventDetails* details)
 {
-	std::cout << "chop chop" << "\n";
+	playerGame.ChopLeft();
 }
 
 void State_Game::MoveRightAndChop(EventDetails* details)
 {
-	std::cout << "chop chop" << "\n";
+	playerGame.ChopRight();
 }
 
 void State_Game::Activate() {}
