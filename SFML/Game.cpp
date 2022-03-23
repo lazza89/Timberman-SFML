@@ -7,7 +7,7 @@ Game::Game(): window("Chapter 5", sf::Vector2u(1280, 720)), stateManager(&contex
 	context.eventManager = window.GetEventManager();
 	context.textureManager = &textureManager;
 
-	stateManager.SwitchTo(StateType::Game);
+	stateManager.SwitchTo(StateType::MainMenu);
 }
 
 Game::~Game(){ }
