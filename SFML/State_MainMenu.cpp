@@ -13,13 +13,12 @@ void State_MainMenu::OnCreate() {
 	text.setCharacterSize(18);
 
 	sf::FloatRect textRect = text.getLocalBounds();
-	text.setOrigin(textRect.left + textRect.width / 2.0f,
-		textRect.top + textRect.height / 2.0f);
+	text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 
-	text.setPosition(400, 100);
+	text.setPosition(stateMgr->GetContext()->window->GetRenderWindow()->getSize().x * 0.5, stateMgr->GetContext()->window->GetRenderWindow()->getSize().y * 0.5 - 100);
 
 	buttonSize = sf::Vector2f(300.0f, 32.0f);
-	buttonPos = sf::Vector2f(400, 200);
+	buttonPos = sf::Vector2f(stateMgr->GetContext()->window->GetRenderWindow()->getSize().x * 0.5, stateMgr->GetContext()->window->GetRenderWindow()->getSize().y * 0.5);
 	buttonPadding = 4; // 4px.
 
 	std::string str[3];
