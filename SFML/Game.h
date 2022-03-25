@@ -1,9 +1,7 @@
 #pragma once
 #include "Window.h"
-#include "EventManager.h"
 #include "StateManager.h"
 #include "SharedContext.h"
-#include "TextureManager.h"
 #include <iostream>
 
 class Game{
@@ -23,6 +21,9 @@ private:
 	Window window;
 	StateManager stateManager;
 	TextureManager textureManager;
+	FontManager fontManager;
+	GUI_Manager guiManager;
+
 	sf::Clock clock;
 	sf::Time elapsed;
 	void RestartClock();

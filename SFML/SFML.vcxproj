@@ -22,8 +22,6 @@
     <ClInclude Include="Anim_Base.h" />
     <ClInclude Include="Anim_Directional.h" />
     <ClInclude Include="BaseState.h" />
-    <ClInclude Include="GUI_Element.h" />
-    <ClInclude Include="GUI_Interface.h" />
     <ClInclude Include="Bee.h" />
     <ClInclude Include="Branch.h" />
     <ClInclude Include="Cloud.h" />
@@ -32,6 +30,14 @@
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GUI_Element.h" />
+    <ClInclude Include="GUI_Event.h" />
+    <ClInclude Include="GUI_Interface.h" />
+    <ClInclude Include="GUI_Label.h" />
+    <ClInclude Include="GUI_Manager.h" />
+    <ClInclude Include="GUI_Scrollbar.h" />
+    <ClInclude Include="GUI_Style.h" />
+    <ClInclude Include="GUI_Textfield.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerGameHandler.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -57,6 +63,11 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GUI_Element.cpp" />
+    <ClCompile Include="GUI_Interface.cpp" />
+    <ClCompile Include="GUI_Label.cpp" />
+    <ClCompile Include="GUI_Manager.cpp" />
+    <ClCompile Include="GUI_Scrollbar.cpp" />
+    <ClCompile Include="GUI_Textfield.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerGameHandler.cpp" />
