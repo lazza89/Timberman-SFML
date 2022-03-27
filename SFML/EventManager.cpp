@@ -211,8 +211,8 @@ void EventManager::LoadBindings() {
 				char* w = new char[window.length() + 1]; // +1 for \0
 				char* e = new char[element.length() + 1];
 
-				strcpy(w, window.c_str());
-				strcpy(e, element.c_str());
+				strcpy_s(w, window.length() + 1, window.c_str());
+				strcpy_s(e, element.length() + 1, element.c_str());
 
 				eventInfo.gui.interface = w;
 				eventInfo.gui.element = e;

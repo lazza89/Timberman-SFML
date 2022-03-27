@@ -32,17 +32,24 @@ GUI_Manager::~GUI_Manager(){
 		}
 	}
 }
-GUI_Interface* GUI_Manager::GetInterface(const StateType& state,
-	const std::string& name)
+GUI_Interface* GUI_Manager::GetInterface(const StateType& state, const std::string& name)
 {
 	auto s = interfaces.find(state);
-	if (s == interfaces.end()){ return nullptr; }
+	if (s == interfaces.end()){ 
+		std::cout << "cannot find interface with name " << name << "\n";
+		return nullptr; 
+	}
 	auto i = s->second.find(name);
-	return (i != s->second.end() ? i->second : nullptr);
+	if (i != s->second.end()) {
+		return i->second;
+	}
+	else {
+		std::cout << "cannot find interface with name " << name << "\n";
+		return nullptr;
+	}
 }
 
-bool GUI_Manager::RemoveInterface(const StateType& state,
-	const std::string& name)
+bool GUI_Manager::RemoveInterface(const StateType& state, const std::string& name)
 {
 	auto s = interfaces.find(state);
 	if (s == interfaces.end()){ return false; }
@@ -154,8 +161,7 @@ GUI_Element* GUI_Manager::CreateElement(const GUI_ElementType& id, GUI_Interface
 	return (f != factory.end() ? f->second(owner) : nullptr);
 }
 
-bool GUI_Manager::AddInterface(const StateType& state,
-	const std::string& name)
+bool GUI_Manager::AddInterface(const StateType& state, const std::string& name)
 {
 	auto s = interfaces.emplace(state, GUI_Interfaces()).first;
 	GUI_Interface* temp = new GUI_Interface(name, this);
@@ -164,11 +170,10 @@ bool GUI_Manager::AddInterface(const StateType& state,
 	return false;
 }
 
-bool GUI_Manager::LoadInterface(const StateType& state,
-	const std::string& interface, const std::string& name)
+bool GUI_Manager::LoadInterface(const StateType& state, const std::string& interface, const std::string& name)
 {
 	std::ifstream file;
-	file.open("media/GUI_Interfaces/" + interface);
+	file.open("Resources/GUI/" + interface);
 	std::string InterfaceName;
 
 	if (!file.is_open()){
@@ -200,24 +205,24 @@ bool GUI_Manager::LoadInterface(const StateType& state,
 				continue;
 			}
 			std::string type;
-			std::string name;
+			std::string tmpName;
 			sf::Vector2f position;
 			std::string style;
-			keystream >> type >> name >> position.x >> position.y >> style;
+			keystream >> type >> tmpName >> position.x >> position.y >> style;
 			GUI_ElementType eType = StringToType(type);
 			if (eType == GUI_ElementType::None){
-				std::cout << "Unknown element('" << name << "') type: '" << type << "'" << std::endl;
+				std::cout << "Unknown element('" << tmpName << "') type: '" << type << "'" << std::endl;
 				continue;
 			}
 
 			GUI_Interface* i = GetInterface(state, name);
 			if (!i){ continue; }
-			if (!i->AddElement(eType, name)){ continue; }
-			GUI_Element* e = i->GetElement(name);
+			if (!i->AddElement(eType, tmpName)){ continue; }
+			GUI_Element* e = i->GetElement(tmpName);
 			keystream >> *e;
 			e->SetPosition(position);
 			if (!LoadStyle(style, e)){
-				std::cout << "Failed loading style file: " << style << " for element " << name << std::endl;
+				std::cout << "Failed loading style file: " << style << " for element " << tmpName << std::endl;
 				continue;
 			}
 		}
@@ -227,7 +232,7 @@ bool GUI_Manager::LoadInterface(const StateType& state,
 }
 bool GUI_Manager::LoadStyle(const std::string& file, GUI_Element* element){
 	std::ifstream fileStream;
-	fileStream.open("media/GUI_Styles/" + file);
+	fileStream.open("Resources/GUI/" + file);
 
 	std::string currentState;
 	GUI_Style ParentStyle;

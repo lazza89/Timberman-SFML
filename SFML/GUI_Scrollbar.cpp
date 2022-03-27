@@ -4,7 +4,9 @@
 #include "SharedContext.h"
 
 GUI_Scrollbar::GUI_Scrollbar(const std::string& name, GUI_Interface* owner) : 
-	GUI_Element(name, GUI_ElementType::Scrollbar, owner)
+	GUI_Element(name, GUI_ElementType::Scrollbar, owner),
+	percentage(0),
+	sliderType(SliderType::Vertical)
 {
 	isControl = true;
 }

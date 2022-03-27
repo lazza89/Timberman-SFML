@@ -115,8 +115,7 @@ public:
 
 	// Needs to be defined in the header!
 	template<class T>
-	bool AddCallback(StateType state, const std::string& name,
-		void(T::* func)(EventDetails*), T* instance)
+	bool AddCallback(StateType state, const std::string& name, void(T::* func)(EventDetails*), T* instance)
 	{
 		auto itr = callbacks.emplace(state, CallbackContainer()).first;
 		auto temp = std::bind(func, instance, std::placeholders::_1);

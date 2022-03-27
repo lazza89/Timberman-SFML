@@ -10,7 +10,8 @@ GUI_Element::GUI_Element(const std::string& name, const GUI_ElementType& type, G
 	owner(owner),
 	needsRedraw(false),
 	active(true),
-	isControl(false)
+	isControl(false),
+	position(sf::Vector2f(0, 0))
 {}
 
 GUI_Element::~GUI_Element(){ 

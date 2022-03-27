@@ -1,5 +1,9 @@
 #include "Game.h"
-Game::Game(): window("Chapter 5", sf::Vector2u(1280, 720)), stateManager(&context){
+Game::Game() :
+	window("Chapter 5", sf::Vector2u(1280, 720)), 
+	stateManager(&context),
+	guiManager(window.GetEventManager(), &context)
+{
 	clock.restart();
 	srand(time(nullptr));
 

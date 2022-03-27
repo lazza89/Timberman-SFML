@@ -13,18 +13,12 @@ public:
 	void Activate();
 	void Deactivate();
 
+	void Play(EventDetails* details);
+	void Quit(EventDetails* details);
+
 	void Update(const sf::Time& time);
 	void Draw();
 
-	void MouseClick(EventDetails* details);
 private:
-	sf::Font font;
-	sf::Text text;
 
-	sf::Vector2f buttonSize;
-	sf::Vector2f buttonPos;
-	unsigned int buttonPadding;
-
-	sf::RectangleShape rects[3];
-	sf::Text labels[3];
 };
