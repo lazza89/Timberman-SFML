@@ -22,7 +22,6 @@ private:
 	StateManager stateManager;
 	TextureManager textureManager;
 	FontManager fontManager;
-	GUI_Manager guiManager;
 
 	sf::Clock clock;
 	sf::Time elapsed;

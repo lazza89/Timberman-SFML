@@ -88,36 +88,6 @@ void EventManager::HandleEvent(sf::Event& event) {
 	}
 }
 
-void EventManager::HandleEvent(GUI_Event& event) {
-	for (auto& b_itr : bindings) {
-		Binding* bind = b_itr.second;
-		for (auto& e_itr : bind->events)
-		{
-			if (e_itr.first != EventType::GUI_Click && e_itr.first != EventType::GUI_Release &&
-				e_itr.first != EventType::GUI_Hover && e_itr.first != EventType::GUI_Leave)
-			{
-				continue;
-			}
-			if ((e_itr.first == EventType::GUI_Click && event.type != GUI_EventType::Click) ||
-				(e_itr.first == EventType::GUI_Release && event.type != GUI_EventType::Release) ||
-				(e_itr.first == EventType::GUI_Hover && event.type != GUI_EventType::Hover) ||
-				(e_itr.first == EventType::GUI_Leave && event.type != GUI_EventType::Leave))
-			{
-				continue;
-			}
-			// REPLACED WITH STRCMP!
-			if (strcmp(e_itr.second.gui.interface, event.interface) ||
-				strcmp(e_itr.second.gui.element, event.element))
-			{
-				continue;
-			}
-			bind->details.guiInterface = event.interface;
-			bind->details.guiElement = event.element;
-			++(bind->c);
-		}
-	}
-}
-
 void EventManager::Update() {
 	if (!hasFocus) { return; }
 	for (auto& b_itr : bindings) {
@@ -213,9 +183,6 @@ void EventManager::LoadBindings() {
 
 				strcpy_s(w, window.length() + 1, window.c_str());
 				strcpy_s(e, element.length() + 1, element.c_str());
-
-				eventInfo.gui.interface = w;
-				eventInfo.gui.element = e;
 			}
 			else {
 				int code = stoi(keyval.substr(end + delimiter.length(),

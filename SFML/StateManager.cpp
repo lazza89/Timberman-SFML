@@ -82,7 +82,6 @@ void StateManager::ProcessRequests(){
 
 void StateManager::SwitchTo(const StateType& type){
 	shared->eventManager->SetCurrentState(type);
-	shared->guiManager->SetCurrentState(type); // new
 
 	for (auto itr = states.begin();
 		itr != states.end(); ++itr)
