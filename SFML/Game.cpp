@@ -10,10 +10,11 @@ Game::Game() :
 	context.eventManager = window.GetEventManager();
 	context.textureManager = &textureManager;
 	context.fontManager = &fontManager;
+	context.gui = window.GetGui();
 
 	fontManager.RequireResource("Main");
 
-	stateManager.SwitchTo(StateType::Game);
+	stateManager.SwitchTo(StateType::MainMenu);
 }
 
 Game::~Game(){ 
