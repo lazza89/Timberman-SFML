@@ -8,6 +8,7 @@ StateManager::StateManager(SharedContext* shared)
 	RegisterState<State_Game>(StateType::Game);
 	RegisterState<State_Paused>(StateType::Paused);
 	RegisterState<State_GameOver>(StateType::GameOver);
+	RegisterState<State_Settings>(StateType::Settings);
 }
 
 StateManager::~StateManager(){
@@ -82,7 +83,6 @@ void StateManager::ProcessRequests(){
 
 void StateManager::SwitchTo(const StateType& type){
 	shared->eventManager->SetCurrentState(type);
-	shared->guiManager->SetCurrentState(type); // new
 
 	for (auto itr = states.begin();
 		itr != states.end(); ++itr)

@@ -1,53 +1,105 @@
 #include "State_MainMenu.h"
 #include "StateManager.h"
 
-State_MainMenu::State_MainMenu(StateManager* stateManager)
-	: BaseState(stateManager) {}
+State_MainMenu::State_MainMenu(StateManager* stateManager) : 
+	BaseState(stateManager),
+	window(nullptr)
+{
+	gui = stateMgr->GetContext()->gui;
+}
 
 State_MainMenu::~State_MainMenu() {}
 
 void State_MainMenu::OnCreate() {	
-	GUI_Manager* gui = stateMgr->GetContext()->guiManager;
-	gui->LoadInterface(StateType::MainMenu, "main_menu.interface", "MainMenu");
-	gui->GetInterface(StateType::MainMenu, "MainMenu")->SetPosition(sf::Vector2f(100, 100));
+	window = stateMgr->GetContext()->window->GetRenderWindow();
+	gui->setFont("Resources/KOMIKAP_.ttf");
 
-	EventManager* eventMgr = stateMgr->GetContext()->eventManager;
-	eventMgr->AddCallback(StateType::MainMenu, "MainMenu_Play", &State_MainMenu::Play, this);
-	eventMgr->AddCallback(StateType::MainMenu, "MainMenu_Quit", &State_MainMenu::Quit, this);
+	playButton = tgui::Button::create();
+	playButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
+	playButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->getSize().x * 0.5, window->getSize().y * 0.5)));
+	playButton->setText("Play");
+	playButton->setTextSize(20);
+
+	settingsButton = tgui::Button::create();
+	settingsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
+	settingsButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
+	settingsButton->setText("Settings");
+	settingsButton->setTextSize(20);
+
+	creditsButton = tgui::Button::create();
+	creditsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
+	creditsButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
+	creditsButton->setText("Credits");
+	creditsButton->setTextSize(20);
+
+	quitButton = tgui::Button::create();
+	quitButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
+	quitButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
+	quitButton->setText("Quit");
+	quitButton->setTextSize(20);
+
+
+	//button signals
+	playButton->onPress(&State_MainMenu::Play, this);
+	quitButton->onPress(&State_MainMenu::Quit, this);
+	settingsButton->onPress(&State_MainMenu::Settings, this);
+
+	gui->add(playButton);
+	gui->add(settingsButton);
+	gui->add(creditsButton);
+	gui->add(quitButton);
 }
 
 
 void State_MainMenu::OnDestroy() {
-	stateMgr->GetContext()->guiManager->RemoveInterface(StateType::MainMenu, "MainMenu");
-	EventManager* eventMgr = stateMgr->GetContext()->eventManager;
-	eventMgr->RemoveCallback(StateType::MainMenu, "MainMenu_Play");
-	eventMgr->RemoveCallback(StateType::MainMenu, "MainMenu_Quit");
+
 }
 
 void State_MainMenu::Activate() {
-	auto& play = *stateMgr->GetContext()->guiManager->GetInterface(StateType::MainMenu, "MainMenu")->GetElement("Play");
-	
-	if (stateMgr->HasState(StateType::Game)) {
-		play.SetText("Resume");
-	}
-	else {
-		play.SetText("Play");
-	}
+	playButton->setVisible(true);
+	settingsButton->setVisible(true);
+	quitButton->setVisible(true);
+	creditsButton->setVisible(true);
+
+	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->getSize().x * 0.5, window->getSize().y * 0.5)));
+	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
+	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
+	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
 }
 
+void State_MainMenu::Deactivate() {
+	playButton->setVisible(false);
+	settingsButton->setVisible(false);
+	quitButton->setVisible(false);
+	creditsButton->setVisible(false);
+}
 
 void State_MainMenu::Draw() {
+	gui->draw();
 }
 
-void State_MainMenu::Update(const sf::Time& time) {}
-void State_MainMenu::Deactivate() {}
+void State_MainMenu::Update(const sf::Time& time) {
+}
 
-void State_MainMenu::Play(EventDetails* details)
+void State_MainMenu::Play()
 {
 	stateMgr->SwitchTo(StateType::Game);
 }
 
-void State_MainMenu::Quit(EventDetails* details)
+void State_MainMenu::Quit()
 {
 	stateMgr->GetContext()->window->Close();
+}
+
+void State_MainMenu::Settings()
+{
+	stateMgr->SwitchTo(StateType::Settings);
+}
+
+void State_MainMenu::Credits()
+{
 }

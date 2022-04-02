@@ -9,6 +9,8 @@ State_Game::State_Game(StateManager* stateManager) :
 State_Game::~State_Game() {}
 
 void State_Game::OnCreate() {
+	std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getSize().x << "\n";
+
 	for (int i = 0; i < 20; i++) {
 		beeVector.push_back(std::make_unique<Bee>(stateMgr));
 	}
@@ -39,6 +41,7 @@ void State_Game::OnDestroy() {
 }
 
 void State_Game::Update(const sf::Time& time) {
+
 	if (playerGame.IsDead()) {
 		stateMgr->SwitchTo(StateType::GameOver);
 	}

@@ -3,7 +3,7 @@
 #include "EventManager.h"
 #include "TextureManager.h"
 #include "FontManager.h"
-#include "GUI_Manager.h"
+#include <TGUI/TGUI.hpp>
 
 struct SharedContext {
 	SharedContext() :
@@ -11,12 +11,12 @@ struct SharedContext {
 		eventManager(nullptr),
 		textureManager(nullptr),
 		fontManager(nullptr),
-		guiManager(nullptr)
+		gui(nullptr)
 	{}
 
 	Window* window;
 	EventManager* eventManager;
 	TextureManager* textureManager;
 	FontManager* fontManager;
-	GUI_Manager* guiManager;
+	tgui::Gui* gui;
 };
