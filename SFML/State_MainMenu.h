@@ -2,6 +2,7 @@
 #include "BaseState.h"
 #include "EventManager.h"
 #include "TGUI/TGUI.hpp"
+#include "Window.h"
 
 class State_MainMenu : public BaseState{
 public:
@@ -19,7 +20,7 @@ public:
 
 private:
 	tgui::Gui* gui;
-	sf::RenderWindow* window;
+	Window* window;
 
 	tgui::Button::Ptr playButton;
 	tgui::Button::Ptr quitButton;

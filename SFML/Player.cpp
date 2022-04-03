@@ -5,7 +5,7 @@ Player::Player(StateManager* manager) :
 	GameObject(manager),
 	direction(PlayerDirection::Left)
 {
-	window = stateMgr->GetContext()->window->GetRenderWindow();
+	window = stateMgr->GetContext()->window;
 	stateMgr->GetContext()->textureManager->RequireResource("player");
 	sprite.setTexture(*stateMgr->GetContext()->textureManager->GetResource("player"));
 	sprite.setOrigin(sprite.getLocalBounds().width * 0.5, sprite.getLocalBounds().height * 0.5);
@@ -18,7 +18,7 @@ Player::~Player()
 
 void Player::Draw()
 {
-	window->draw(sprite);
+	window->GetRenderWindow()->draw(sprite);
 }
 
 void Player::Update(const sf::Time& deltaTime)

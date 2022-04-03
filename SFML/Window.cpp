@@ -61,6 +61,14 @@ void Window::ToggleFullscreen(EventDetails* details) {
 	Create();
 }
 
+void Window::ChangeResolution(const sf::Vector2u& res)
+{
+	window.close();
+	windowSize = res;
+	Create();
+	gui->setTarget(window);
+}
+
 void Window::Close(EventDetails* details) { isDone = true; }
 
 void Window::Update() {

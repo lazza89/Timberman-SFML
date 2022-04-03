@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseState.h"
 #include "EventManager.h"
+#include "Window.h"
 #include <TGUI/TGUI.hpp>
 #include <memory>
 
@@ -21,7 +22,7 @@ public:
 
 private:
 	tgui::Gui* gui;
-	sf::RenderWindow* window;
+	Window* window;
 
 	tgui::Button::Ptr exitButton;
 	tgui::ComboBox::Ptr resolutionBox;

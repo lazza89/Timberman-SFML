@@ -23,6 +23,7 @@ public:
 	bool IsFocused();
 
 	void ToggleFullscreen(EventDetails* details);
+	void ChangeResolution(const sf::Vector2u&);
 	void Close(EventDetails* details = nullptr);
 
 	sf::RenderWindow* GetRenderWindow();

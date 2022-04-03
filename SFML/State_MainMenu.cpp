@@ -5,19 +5,19 @@ State_MainMenu::State_MainMenu(StateManager* stateManager) :
 	BaseState(stateManager),
 	window(nullptr)
 {
-	gui = stateMgr->GetContext()->gui;
+	window = stateMgr->GetContext()->window;
+	gui = stateMgr->GetContext()->window->GetGui();
 }
 
 State_MainMenu::~State_MainMenu() {}
 
 void State_MainMenu::OnCreate() {	
-	window = stateMgr->GetContext()->window->GetRenderWindow();
 	gui->setFont("Resources/KOMIKAP_.ttf");
 
 	playButton = tgui::Button::create();
 	playButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
 	playButton->setOrigin(sf::Vector2f(0.5, 0.5));
-	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->getSize().x * 0.5, window->getSize().y * 0.5)));
+	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5)));
 	playButton->setText("Play");
 	playButton->setTextSize(20);
 
@@ -65,7 +65,7 @@ void State_MainMenu::Activate() {
 	quitButton->setVisible(true);
 	creditsButton->setVisible(true);
 
-	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->getSize().x * 0.5, window->getSize().y * 0.5)));
+	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5)));
 	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
 	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
 	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));

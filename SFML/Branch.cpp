@@ -4,7 +4,7 @@
 Branch::Branch(StateManager* manager, const sf::Vector2f& pos) :
 	GameObject(manager)
 {
-	window = stateMgr->GetContext()->window->GetRenderWindow();
+	window = stateMgr->GetContext()->window;
 	stateMgr->GetContext()->textureManager->RequireResource("branch");
 	sprite.setTexture(*stateMgr->GetContext()->textureManager->GetResource("branch"));
 	sprite.setOrigin(0, sprite.getLocalBounds().height * 0.5);
@@ -34,7 +34,7 @@ Branch::~Branch()
 
 void Branch::Draw()
 {
-	window->draw(sprite);
+	window->GetRenderWindow()->draw(sprite);
 }
 
 void Branch::Update(const sf::Time& deltaTime)

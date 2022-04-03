@@ -11,8 +11,8 @@ Bee::Bee(StateManager* manager) :
 	direction(Direction::Left),
 	speed(200)
 {
-	window = stateMgr->GetContext()->window->GetRenderWindow();
-	windowSize = window->getSize();
+	window = stateMgr->GetContext()->window;
+	windowSize = window->GetRenderWindow()->getSize();
 
 	stateMgr->GetContext()->textureManager->RequireResource("bee");
 	sprite.setTexture(*stateMgr->GetContext()->textureManager->GetResource("bee"));
@@ -29,7 +29,7 @@ Bee::Bee(StateManager* manager) :
 Bee::~Bee() {}
 
 void Bee::Draw() {
-	window->draw(sprite);
+	window->GetRenderWindow()->draw(sprite);
 }
 
 void Bee::Update(const sf::Time& deltaTime) {

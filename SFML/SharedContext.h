@@ -10,13 +10,11 @@ struct SharedContext {
 		window(nullptr),
 		eventManager(nullptr),
 		textureManager(nullptr),
-		fontManager(nullptr),
-		gui(nullptr)
+		fontManager(nullptr)
 	{}
 
 	Window* window;
 	EventManager* eventManager;
 	TextureManager* textureManager;
 	FontManager* fontManager;
-	tgui::Gui* gui;
 };
