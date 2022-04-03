@@ -31,5 +31,6 @@ private:
 	std::string stringRes;
 
 	void BackToMainMenu();
+	void ChangedResolution();
 };
 

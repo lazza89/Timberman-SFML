@@ -29,10 +29,10 @@ void Window::Setup(const std::string& title, const sf::Vector2u& size) {
 }
 
 void Window::Create() {
-	sf::Uint32 style = sf::Style::Default;
+	sf::Uint32 style = sf::Style::Titlebar | sf::Style::Close;
 	if (isFullscreen) { style = sf::Style::Fullscreen; }
 	// for no resize sf::Style::Titlebar | sf::Style::Close
-	window.create(sf::VideoMode(windowSize.x, windowSize.y, 32), windowTitle, sf::Style::Titlebar | sf::Style::Close);
+	window.create(sf::VideoMode(windowSize.x, windowSize.y, 32), windowTitle, style);
 }
 
 void Window::BeginDraw() { window.clear(sf::Color::Black); }

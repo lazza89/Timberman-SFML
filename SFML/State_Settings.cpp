@@ -5,6 +5,8 @@ State_Settings::State_Settings(StateManager* manager) :
 	BaseState(manager),
 	stringRes("1280 x 720")
 {
+	view.reset(sf::FloatRect(0, 0, 1920, 1080));
+	view.setViewport(sf::FloatRect(0, 0, 1, 1));
 	window = stateMgr->GetContext()->window;
 	gui = stateMgr->GetContext()->window->GetGui();
 }
@@ -70,14 +72,17 @@ void State_Settings::Update(const sf::Time& time)
 		
 		if (tmp == "1920 x 1080") {
 			window->ChangeResolution(sf::Vector2u(1920, 1080));
+			ChangedResolution();
 			stringRes = "1920 x 1080";
 		}
 		else if (tmp == "1280 x 720") {
 			window->ChangeResolution(sf::Vector2u(1280, 720));
+			ChangedResolution();
 			stringRes = "1280 x 720";
 		}
 		else if (tmp == "800 x 600") {
 			window->ChangeResolution(sf::Vector2u(800, 600));
+			ChangedResolution();
 			stringRes = "800 x 600";
 		}
 	}
@@ -92,4 +97,12 @@ void State_Settings::Draw()
 void State_Settings::BackToMainMenu()
 {
 	stateMgr->SwitchTo(StateType::MainMenu);
+}
+
+void State_Settings::ChangedResolution()
+{
+	sf::Vector2u windowPos = window->GetRenderWindow()->getSize();
+	exitButton->setPosition(tgui::Layout2d(sf::Vector2f(windowPos.x - exitButton->getSize().x - 20, 20)));
+	resolutionBox->setPosition(tgui::Layout2d(sf::Vector2f(windowPos.x * 0.5, windowPos.y * 0.5)));
+	resolutionLabel->setPosition(tgui::Layout2d(sf::Vector2f(resolutionBox->getPosition().x, resolutionBox->getPosition().y - resolutionLabel->getSize().y - 70)));
 }
