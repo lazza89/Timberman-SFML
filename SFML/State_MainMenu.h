@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseState.h"
 #include "EventManager.h"
+#include "TGUI/TGUI.hpp"
+#include "Window.h"
 
 class State_MainMenu : public BaseState{
 public:
@@ -16,15 +18,17 @@ public:
 	void Update(const sf::Time& time);
 	void Draw();
 
-	void MouseClick(EventDetails* details);
 private:
-	sf::Font font;
-	sf::Text text;
+	tgui::Gui* gui;
+	Window* window;
 
-	sf::Vector2f buttonSize;
-	sf::Vector2f buttonPos;
-	unsigned int buttonPadding;
+	tgui::Button::Ptr playButton;
+	tgui::Button::Ptr quitButton;
+	tgui::Button::Ptr settingsButton;
+	tgui::Button::Ptr creditsButton;
 
-	sf::RectangleShape rects[3];
-	sf::Text labels[3];
+	void Play();
+	void Quit();
+	void Settings();
+	void Credits();
 };

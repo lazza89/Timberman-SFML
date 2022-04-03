@@ -20,7 +20,7 @@ public:
 	void Chop();
 
 private:
-	sf::RenderWindow* window;
+	Window* window;
 	sf::Sprite sprite;
 
 	std::list<std::unique_ptr<Branch>> branchVector;

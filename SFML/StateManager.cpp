@@ -8,6 +8,7 @@ StateManager::StateManager(SharedContext* shared)
 	RegisterState<State_Game>(StateType::Game);
 	RegisterState<State_Paused>(StateType::Paused);
 	RegisterState<State_GameOver>(StateType::GameOver);
+	RegisterState<State_Settings>(StateType::Settings);
 }
 
 StateManager::~StateManager(){
@@ -82,6 +83,7 @@ void StateManager::ProcessRequests(){
 
 void StateManager::SwitchTo(const StateType& type){
 	shared->eventManager->SetCurrentState(type);
+
 	for (auto itr = states.begin();
 		itr != states.end(); ++itr)
 	{
@@ -114,7 +116,7 @@ void StateManager::CreateState(const StateType& type){
 	auto newState = stateFactory.find(type);
 	if (newState == stateFactory.end()){ return; }
 	BaseState* state = newState->second();
-	state->view = shared->window->GetRenderWindow()->getDefaultView();
+	//state->view = shared->window->GetRenderWindow()->getDefaultView();
 	states.emplace_back(type, state);
 	state->OnCreate();
 }

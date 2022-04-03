@@ -10,8 +10,8 @@ Cloud::Cloud(StateManager* manager) :
 	randomSpeed(20, 120),
 	speed(10)
 {
-	window = stateMgr->GetContext()->window->GetRenderWindow();
-	windowSize = window->getSize();
+	window = stateMgr->GetContext()->window;
+	windowSize = sf::Vector2u(1920, 1080);
 
 	stateMgr->GetContext()->textureManager->RequireResource("cloud");
 	sprite.setTexture(*stateMgr->GetContext()->textureManager->GetResource("cloud"));
@@ -28,7 +28,7 @@ Cloud::Cloud(StateManager* manager) :
 Cloud::~Cloud() {}
 
 void Cloud::Draw() {
-	window->draw(sprite);
+	window->GetRenderWindow()->draw(sprite);
 }
 
 void Cloud::Update(const sf::Time& deltaTime) {

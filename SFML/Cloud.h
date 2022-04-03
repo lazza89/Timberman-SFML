@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include <random>
+#include "Window.h"
 
 class Cloud : public GameObject
 {
@@ -14,7 +15,7 @@ public:
 
 private:
 	sf::Sprite sprite;
-	sf::RenderWindow* window;
+	Window* window;
 	sf::Vector2u windowSize;
 
 	float speed;

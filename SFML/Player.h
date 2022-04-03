@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Window.h"
 
 enum class PlayerDirection {
 	Left,
@@ -19,7 +20,7 @@ public:
 	PlayerDirection GetDirection();
 
 private:
-	sf::RenderWindow* window;
+	Window* window;
 	sf::Sprite sprite;
 
 	PlayerDirection direction;

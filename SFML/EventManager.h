@@ -8,8 +8,6 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "Utilities.h"
-#include "GUI_Event.h"
 
 enum class EventType {
 	KeyDown = sf::Event::KeyPressed,
@@ -31,10 +29,8 @@ enum class EventType {
 struct EventInfo {
 	EventInfo() { code = 0; }
 	EventInfo(int event) { code = event; }
-	EventInfo(const GUI_Event& guiEvent) { gui = guiEvent; }
 	union {
 		int code;
-		GUI_Event gui;
 	};
 };
 
@@ -51,9 +47,6 @@ struct EventDetails {
 	int mouseWheelDelta;
 	int keyCode; // Single key code.
 
-	std::string guiInterface;
-	std::string guiElement;
-	GUI_EventType guiEvent;
 
 	void Clear() {
 		size = sf::Vector2i(0, 0);
@@ -61,9 +54,6 @@ struct EventDetails {
 		mouse = sf::Vector2i(0, 0);
 		mouseWheelDelta = 0;
 		keyCode = -1;
-		guiInterface = "";
-		guiElement = "";
-		guiEvent = GUI_EventType::None;
 	}
 };
 
@@ -71,19 +61,7 @@ using Events = std::vector<std::pair<EventType, EventInfo>>;
 
 struct Binding {
 	Binding(const std::string& name) : name(name), details(name), c(0) {}
-	~Binding() {
-		// GUI portion.
-		for (auto itr = events.begin();
-			itr != events.end(); ++itr)
-		{
-			if (itr->first == EventType::GUI_Click || itr->first == EventType::GUI_Release ||
-				itr->first == EventType::GUI_Hover || itr->first == EventType::GUI_Leave)
-			{
-				delete[] itr->second.gui.interface;
-				delete[] itr->second.gui.element;
-			}
-		}
-	}
+	~Binding() {}
 	void BindEvent(EventType type, EventInfo info = EventInfo()) {
 		events.emplace_back(type, info);
 	}
@@ -115,8 +93,7 @@ public:
 
 	// Needs to be defined in the header!
 	template<class T>
-	bool AddCallback(StateType state, const std::string& name,
-		void(T::* func)(EventDetails*), T* instance)
+	bool AddCallback(StateType state, const std::string& name, void(T::* func)(EventDetails*), T* instance)
 	{
 		auto itr = callbacks.emplace(state, CallbackContainer()).first;
 		auto temp = std::bind(func, instance, std::placeholders::_1);
@@ -133,7 +110,6 @@ public:
 	}
 
 	void HandleEvent(sf::Event& event);
-	void HandleEvent(GUI_Event& event);
 	void Update();
 
 	// Getters.

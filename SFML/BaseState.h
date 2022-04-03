@@ -7,7 +7,8 @@ friend class StateManager;
 public:
 	BaseState(StateManager* stateManager) 
 		:stateMgr(stateManager), transparent(false),
-		transcendent(false){}
+		transcendent(false)
+	{}
 	virtual ~BaseState(){}
 
 	virtual void OnCreate() = 0;

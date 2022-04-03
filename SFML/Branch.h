@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Window.h"
 
 enum class BranchDirection {
 	Left,
@@ -21,7 +22,7 @@ public:
 
 private:
 	BranchDirection direction;
-	sf::RenderWindow* window;
+	Window* window;
 	sf::Sprite sprite;
 
 };

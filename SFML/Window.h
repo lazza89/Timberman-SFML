@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
+#include <memory>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include "EventManager.h"
+#include <TGUI/TGUI.hpp>
 
 class Window{
 public:
@@ -21,10 +23,12 @@ public:
 	bool IsFocused();
 
 	void ToggleFullscreen(EventDetails* details);
+	void ChangeResolution(const sf::Vector2u&);
 	void Close(EventDetails* details = nullptr);
 
 	sf::RenderWindow* GetRenderWindow();
 	EventManager* GetEventManager();
+	tgui::Gui* GetGui();
 	sf::Vector2u GetWindowSize();
 	sf::FloatRect GetViewSpace();
 private:
@@ -33,6 +37,7 @@ private:
 
 	sf::RenderWindow window;
 	EventManager eventManager;
+	tgui::Gui* gui;
 	sf::Vector2u windowSize;
 	std::string windowTitle;
 	bool isDone;

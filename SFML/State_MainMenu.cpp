@@ -1,103 +1,105 @@
 #include "State_MainMenu.h"
 #include "StateManager.h"
 
-State_MainMenu::State_MainMenu(StateManager* stateManager)
-	: BaseState(stateManager) {}
+State_MainMenu::State_MainMenu(StateManager* stateManager) : 
+	BaseState(stateManager),
+	window(nullptr)
+{
+	window = stateMgr->GetContext()->window;
+	gui = stateMgr->GetContext()->window->GetGui();
+}
 
 State_MainMenu::~State_MainMenu() {}
 
-void State_MainMenu::OnCreate() {
-	font.loadFromFile("Resources/KOMIKAP_.ttf");
-	text.setFont(font);
-	text.setString(sf::String("MAIN MENU:"));
-	text.setCharacterSize(18);
+void State_MainMenu::OnCreate() {	
+	gui->setFont("Resources/KOMIKAP_.ttf");
 
-	sf::FloatRect textRect = text.getLocalBounds();
-	text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	playButton = tgui::Button::create();
+	playButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
+	playButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5)));
+	playButton->setText("Play");
+	playButton->setTextSize(20);
 
-	text.setPosition(stateMgr->GetContext()->window->GetRenderWindow()->getSize().x * 0.5, stateMgr->GetContext()->window->GetRenderWindow()->getSize().y * 0.5 - 100);
+	settingsButton = tgui::Button::create();
+	settingsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
+	settingsButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
+	settingsButton->setText("Settings");
+	settingsButton->setTextSize(20);
 
-	buttonSize = sf::Vector2f(300.0f, 32.0f);
-	buttonPos = sf::Vector2f(stateMgr->GetContext()->window->GetRenderWindow()->getSize().x * 0.5, stateMgr->GetContext()->window->GetRenderWindow()->getSize().y * 0.5);
-	buttonPadding = 4; // 4px.
+	creditsButton = tgui::Button::create();
+	creditsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
+	creditsButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
+	creditsButton->setText("Credits");
+	creditsButton->setTextSize(20);
 
-	std::string str[3];
-	str[0] = "PLAY";
-	str[1] = "CREDITS";
-	str[2] = "EXIT";
+	quitButton = tgui::Button::create();
+	quitButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
+	quitButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
+	quitButton->setText("Quit");
+	quitButton->setTextSize(20);
 
-	for (int i = 0; i < 3; ++i) {
-		sf::Vector2f buttonPosition(buttonPos.x, buttonPos.y +
-			(i * (buttonSize.y + buttonPadding)));
-		rects[i].setSize(buttonSize);
-		rects[i].setFillColor(sf::Color::Red);
 
-		rects[i].setOrigin(buttonSize.x / 2.0f, buttonSize.y / 2.0f);
-		rects[i].setPosition(buttonPosition);
+	//button signals
+	playButton->onPress(&State_MainMenu::Play, this);
+	quitButton->onPress(&State_MainMenu::Quit, this);
+	settingsButton->onPress(&State_MainMenu::Settings, this);
 
-		labels[i].setFont(font);
-		labels[i].setString(sf::String(str[i]));
-		labels[i].setCharacterSize(12);
-
-		sf::FloatRect rect = labels[i].getLocalBounds();
-		labels[i].setOrigin(rect.left + rect.width / 2.0f,
-			rect.top + rect.height / 2.0f);
-
-		labels[i].setPosition(buttonPosition);
-	}
-
-	EventManager* evMgr = stateMgr->GetContext()->eventManager;
-	evMgr->AddCallback(StateType::MainMenu, "Mouse_Left", &State_MainMenu::MouseClick, this);
+	gui->add(playButton);
+	gui->add(settingsButton);
+	gui->add(creditsButton);
+	gui->add(quitButton);
 }
 
+
 void State_MainMenu::OnDestroy() {
-	EventManager* evMgr = stateMgr->GetContext()->eventManager;
-	evMgr->RemoveCallback(StateType::MainMenu, "Mouse_Left");
+
 }
 
 void State_MainMenu::Activate() {
-	if (stateMgr->HasState(StateType::Game)
-		&& labels[0].getString() == "PLAY")
-	{
-		labels[0].setString(sf::String("RESUME"));
-		sf::FloatRect rect = labels[0].getLocalBounds();
-		labels[0].setOrigin(rect.left + rect.width / 2.0f,
-			rect.top + rect.height / 2.0f);
-	}
+	playButton->setVisible(true);
+	settingsButton->setVisible(true);
+	quitButton->setVisible(true);
+	creditsButton->setVisible(true);
+
+	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5)));
+	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
+	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
+	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
 }
 
-void State_MainMenu::MouseClick(EventDetails* details) {
-	sf::Vector2i mousePos = details->mouse;
-
-	float halfX = buttonSize.x / 2.0f;
-	float halfY = buttonSize.y / 2.0f;
-	for (int i = 0; i < 3; ++i) {
-		if (mousePos.x >= rects[i].getPosition().x - halfX &&
-			mousePos.x <= rects[i].getPosition().x + halfX &&
-			mousePos.y >= rects[i].getPosition().y - halfY &&
-			mousePos.y <= rects[i].getPosition().y + halfY)
-		{
-			if (i == 0) {
-				stateMgr->SwitchTo(StateType::Game);
-			}
-			else if (i == 1) {
-				// Credits state.
-			}
-			else if (i == 2) {
-				stateMgr->GetContext()->window->Close();
-			}
-		}
-	}
+void State_MainMenu::Deactivate() {
+	playButton->setVisible(false);
+	settingsButton->setVisible(false);
+	quitButton->setVisible(false);
+	creditsButton->setVisible(false);
 }
 
 void State_MainMenu::Draw() {
-	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
-	window->draw(text);
-	for (int i = 0; i < 3; ++i) {
-		window->draw(rects[i]);
-		window->draw(labels[i]);
-	}
+	gui->draw();
 }
 
-void State_MainMenu::Update(const sf::Time& time) {}
-void State_MainMenu::Deactivate() {}
+void State_MainMenu::Update(const sf::Time& time) {
+}
+
+void State_MainMenu::Play()
+{
+	stateMgr->SwitchTo(StateType::Game);
+}
+
+void State_MainMenu::Quit()
+{
+	stateMgr->GetContext()->window->Close();
+}
+
+void State_MainMenu::Settings()
+{
+	stateMgr->SwitchTo(StateType::Settings);
+}
+
+void State_MainMenu::Credits()
+{
+}
