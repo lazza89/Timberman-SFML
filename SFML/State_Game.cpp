@@ -5,8 +5,7 @@ State_Game::State_Game(StateManager* stateManager) :
 	BaseState(stateManager),
 	playerGame(stateManager)
 {
-	view.reset(sf::FloatRect(0, 0, 1280, 720));
-	//view.setSize(1280, 720);
+	view.reset(sf::FloatRect(0, 0, 1920, 1080));
 	view.setViewport(sf::FloatRect(0, 0, 1, 1));
 }
 
@@ -25,7 +24,7 @@ void State_Game::OnCreate() {
 	stateMgr->GetContext()->textureManager->RequireResource("background");
 	background.setTexture(*stateMgr->GetContext()->textureManager->GetResource("background"));
 
-	sf::Vector2f targeSize = stateMgr->GetContext()->window->GetRenderWindow()->getDefaultView().getSize();
+	sf::Vector2f targeSize = view.getSize();
 	background.setScale(targeSize.x / background.getLocalBounds().width, targeSize.y / background.getLocalBounds().height);
 
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;

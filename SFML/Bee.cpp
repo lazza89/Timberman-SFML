@@ -12,7 +12,7 @@ Bee::Bee(StateManager* manager) :
 	speed(200)
 {
 	window = stateMgr->GetContext()->window;
-	windowSize = window->GetRenderWindow()->getSize();
+	windowSize = sf::Vector2u(1920, 1080);
 
 	stateMgr->GetContext()->textureManager->RequireResource("bee");
 	sprite.setTexture(*stateMgr->GetContext()->textureManager->GetResource("bee"));

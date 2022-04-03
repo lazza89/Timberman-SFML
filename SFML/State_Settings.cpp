@@ -24,6 +24,7 @@ void State_Settings::OnCreate()
 	resolutionBox = tgui::ComboBox::create();
 	resolutionBox->addItem("1920 x 1080");
 	resolutionBox->addItem("1280 x 720");
+	resolutionBox->addItem("800 x 600");
 	resolutionBox->setSelectedItem("1280 x 720");
 	resolutionBox->setSize(tgui::Layout2d(sf::Vector2f(250, 50)));
 	resolutionBox->setTextSize(20);
@@ -74,6 +75,10 @@ void State_Settings::Update(const sf::Time& time)
 		else if (tmp == "1280 x 720") {
 			window->ChangeResolution(sf::Vector2u(1280, 720));
 			stringRes = "1280 x 720";
+		}
+		else if (tmp == "800 x 600") {
+			window->ChangeResolution(sf::Vector2u(800, 600));
+			stringRes = "800 x 600";
 		}
 	}
 
