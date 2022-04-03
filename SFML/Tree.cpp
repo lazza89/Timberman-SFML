@@ -8,7 +8,7 @@ Tree::Tree(StateManager* manager) :
 	stateMgr->GetContext()->textureManager->RequireResource("tree");
 	sprite.setTexture(*stateMgr->GetContext()->textureManager->GetResource("tree"));
 	sprite.setOrigin(sprite.getLocalBounds().width * 0.5, sprite.getLocalBounds().height * 0.5);
-	sprite.setPosition(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.2);
+	//sprite.setPosition(1920 * 0.5, 1080 * 0.2);
 
 	sf::Vector2f branchPos(sprite.getPosition().x, 0);
 	for (int i = 0; i < 5; i++) {

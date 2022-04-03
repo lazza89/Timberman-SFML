@@ -4,12 +4,15 @@
 State_Game::State_Game(StateManager* stateManager) :
 	BaseState(stateManager),
 	playerGame(stateManager)
-{}
+{
+	view.reset(sf::FloatRect(0, 0, 1280, 720));
+	//view.setSize(1280, 720);
+	view.setViewport(sf::FloatRect(0, 0, 1, 1));
+}
 
 State_Game::~State_Game() {}
 
 void State_Game::OnCreate() {
-	std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getSize().x << "\n";
 
 	for (int i = 0; i < 20; i++) {
 		beeVector.push_back(std::make_unique<Bee>(stateMgr));
@@ -22,7 +25,7 @@ void State_Game::OnCreate() {
 	stateMgr->GetContext()->textureManager->RequireResource("background");
 	background.setTexture(*stateMgr->GetContext()->textureManager->GetResource("background"));
 
-	sf::Vector2f targeSize = stateMgr->GetContext()->window->GetRenderWindow()->getView().getSize();
+	sf::Vector2f targeSize = stateMgr->GetContext()->window->GetRenderWindow()->getDefaultView().getSize();
 	background.setScale(targeSize.x / background.getLocalBounds().width, targeSize.y / background.getLocalBounds().height);
 
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
@@ -84,5 +87,12 @@ void State_Game::MoveRightAndChop(EventDetails* details)
 	playerGame.ChopRight();
 }
 
-void State_Game::Activate() {}
-void State_Game::Deactivate() {}
+void State_Game::Activate() {
+	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getSize().x << "\n";
+	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getDefaultView().getSize().x << "\n";
+	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getView().getSize().x << "\n";
+
+}
+void State_Game::Deactivate() {
+
+}
