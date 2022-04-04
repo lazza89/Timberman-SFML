@@ -1,8 +1,13 @@
 #include "State_Paused.h"
 #include "StateManager.h"
 
-State_Paused::State_Paused(StateManager* stateManager)
-	: BaseState(stateManager){}
+State_Paused::State_Paused(StateManager* stateManager) : 
+	BaseState(stateManager),
+	windowSize(1920, 1080)
+{
+	view.reset(sf::FloatRect(0, 0, 1920, 1080));
+	view.setViewport(sf::FloatRect(0, 0, 1, 1));
+}
 
 State_Paused::~State_Paused(){}
 
@@ -11,10 +16,8 @@ void State_Paused::OnCreate(){
 	font.loadFromFile("Resources/KOMIKAP_.ttf");
 	text.setFont(font);
 	text.setString(sf::String("PAUSED"));
-	text.setCharacterSize(14);
+	text.setCharacterSize(34);
 	text.setStyle(sf::Text::Bold);
-
-	sf::Vector2u windowSize = stateMgr->GetContext()->window->GetRenderWindow()->getSize();
 
 	sf::FloatRect textRect = text.getLocalBounds();
 	text.setOrigin(textRect.left + textRect.width / 2.0f,
