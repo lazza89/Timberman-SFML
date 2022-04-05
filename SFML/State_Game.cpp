@@ -25,8 +25,12 @@ void State_Game::OnCreate() {
 	stateMgr->GetContext()->textureManager->RequireResource("background");
 	background.setTexture(*stateMgr->GetContext()->textureManager->GetResource("background"));
 
+	stateMgr->GetContext()->textureManager->RequireResource("trees");
+	trees.setTexture(*stateMgr->GetContext()->textureManager->GetResource("trees"));
+
 	sf::Vector2f targeSize = view.getSize();
 	background.setScale(targeSize.x / background.getLocalBounds().width, targeSize.y / background.getLocalBounds().height);
+	trees.setScale(targeSize.x / background.getLocalBounds().width, targeSize.y / background.getLocalBounds().height);
 
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
@@ -61,10 +65,13 @@ void State_Game::Update(const sf::Time& time) {
 }
 
 void State_Game::Draw() {
-	stateMgr->GetContext()->window->GetRenderWindow()->draw(background);
+	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
+
+	window->draw(background);
 	for (auto& itr : cloudVector) {
 		itr->Draw();
 	}
+	window->draw(trees);
 	playerGame.Draw();
 	for (auto& itr : beeVector) {
 		itr->Draw();

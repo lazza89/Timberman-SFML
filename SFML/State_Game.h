@@ -30,6 +30,7 @@ public:
 
 private:
 	sf::Sprite background;
+	sf::Sprite trees;
 	PlayerGameHandler playerGame;
 	ScoreHandler score;
 
