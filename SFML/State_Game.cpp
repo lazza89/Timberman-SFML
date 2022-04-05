@@ -3,7 +3,8 @@
 
 State_Game::State_Game(StateManager* stateManager) :
 	BaseState(stateManager),
-	playerGame(stateManager)
+	playerGame(stateManager),
+	score(stateManager)
 {
 	view.reset(sf::FloatRect(0, 0, 1920, 1080));
 	view.setViewport(sf::FloatRect(0, 0, 1, 1));
@@ -43,9 +44,10 @@ void State_Game::OnDestroy() {
 }
 
 void State_Game::Update(const sf::Time& time) {
+	score.Update(time);
 
 	if (playerGame.IsDead()) {
-		stateMgr->SwitchTo(StateType::GameOver);
+		stateMgr->SwitchTo(StateType::Paused);
 	}
 
 	for (auto& itr : cloudVector) {
@@ -66,6 +68,7 @@ void State_Game::Draw() {
 	for (auto& itr : beeVector) {
 		itr->Draw();
 	}
+	score.Draw();
 }
 
 void State_Game::MainMenu(EventDetails* details) {
@@ -79,17 +82,16 @@ void State_Game::Pause(EventDetails* details) {
 void State_Game::MoveLeftAndChop(EventDetails* details)
 {
 	playerGame.ChopLeft();
+	score.AddScore(1);
 }
 
 void State_Game::MoveRightAndChop(EventDetails* details)
 {
 	playerGame.ChopRight();
+	score.AddScore(1);
 }
 
 void State_Game::Activate() {
-	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getSize().x << "\n";
-	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getDefaultView().getSize().x << "\n";
-	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getView().getSize().x << "\n";
 
 }
 void State_Game::Deactivate() {

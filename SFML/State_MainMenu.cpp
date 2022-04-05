@@ -52,11 +52,16 @@ void State_MainMenu::OnCreate() {
 	gui->add(settingsButton);
 	gui->add(creditsButton);
 	gui->add(quitButton);
+
+	EventManager* evMgr = stateMgr->GetContext()->eventManager;
+	evMgr->AddCallback(StateType::MainMenu, "Key_Space", &State_MainMenu::PlayWithKeyboard, this);
+
 }
 
 
 void State_MainMenu::OnDestroy() {
-
+	EventManager* evMgr = stateMgr->GetContext()->eventManager;
+	evMgr->RemoveCallback(StateType::MainMenu, "Key_Space");
 }
 
 void State_MainMenu::Activate() {
@@ -88,6 +93,11 @@ void State_MainMenu::Update(const sf::Time& time) {
 void State_MainMenu::Play()
 {
 	stateMgr->SwitchTo(StateType::Game);
+}
+
+void State_MainMenu::PlayWithKeyboard(EventDetails* details)
+{
+	Play();
 }
 
 void State_MainMenu::Quit()

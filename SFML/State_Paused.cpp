@@ -15,7 +15,7 @@ void State_Paused::OnCreate(){
 	SetTransparent(true); // Set our transparency flag.
 	font.loadFromFile("Resources/KOMIKAP_.ttf");
 	text.setFont(font);
-	text.setString(sf::String("PAUSED"));
+	text.setString(sf::String("Game Over!"));
 	text.setCharacterSize(34);
 	text.setStyle(sf::Text::Bold);
 
@@ -29,12 +29,12 @@ void State_Paused::OnCreate(){
 	rect.setFillColor(sf::Color(0,0,0,150));
 
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
-	evMgr->AddCallback(StateType::Paused,"Key_P",&State_Paused::Unpause,this);
+	evMgr->AddCallback(StateType::Paused,"Key_Space",&State_Paused::Unpause,this);
 }
 
 void State_Paused::OnDestroy(){
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
-	evMgr->RemoveCallback(StateType::Paused,"Key_P");
+	evMgr->RemoveCallback(StateType::Paused,"Key_Space");
 }
 
 void State_Paused::Draw(){
@@ -44,7 +44,9 @@ void State_Paused::Draw(){
 }
 
 void State_Paused::Unpause(EventDetails* details){
-	stateMgr->SwitchTo(StateType::Game); 
+	stateMgr->Remove(StateType::Game);
+	stateMgr->Remove(StateType::Paused);
+	stateMgr->SwitchTo(StateType::MainMenu); 
 }
 
 void State_Paused::Activate(){}

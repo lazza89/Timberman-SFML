@@ -27,6 +27,7 @@ private:
 	tgui::Button::Ptr settingsButton;
 	tgui::Button::Ptr creditsButton;
 
+	void PlayWithKeyboard(EventDetails* details);
 	void Play();
 	void Quit();
 	void Settings();
