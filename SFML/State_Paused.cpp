@@ -13,20 +13,17 @@ State_Paused::~State_Paused(){}
 
 void State_Paused::OnCreate(){
 	SetTransparent(true); // Set our transparency flag.
-	font.loadFromFile("Resources/KOMIKAP_.ttf");
-	text.setFont(font);
+	stateMgr->GetContext()->fontManager->RequireResource("Main");
+	text.setFont(*stateMgr->GetContext()->fontManager->GetResource("Main"));
+	text.setFillColor(sf::Color::Black);
 	text.setString(sf::String("Game Over!"));
-	text.setCharacterSize(34);
+	text.setCharacterSize(45);
 	text.setStyle(sf::Text::Bold);
 
-	sf::FloatRect textRect = text.getLocalBounds();
-	text.setOrigin(textRect.left + textRect.width / 2.0f,
-		textRect.top + textRect.height / 2.0f);
-	text.setPosition(windowSize.x / 2.0f, windowSize.y / 2.0f);
 
-	rect.setSize(sf::Vector2f(windowSize));
-	rect.setPosition(0,0);
-	rect.setFillColor(sf::Color(0,0,0,150));
+	sf::FloatRect textRect = text.getLocalBounds();
+	text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	text.setPosition(windowSize.x / 2.0f, windowSize.y / 2.0f);
 
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
 	evMgr->AddCallback(StateType::Paused,"Key_Space",&State_Paused::Unpause,this);
@@ -39,7 +36,6 @@ void State_Paused::OnDestroy(){
 
 void State_Paused::Draw(){
 	sf::RenderWindow* wind = stateMgr->GetContext()->window->GetRenderWindow();
-	wind->draw(rect);
 	wind->draw(text);
 }
 

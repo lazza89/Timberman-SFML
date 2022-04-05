@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseState.h"
-#include <SFML/Graphics.hpp>
+#include "EventManager.h"
 
 class State_GameOver : public BaseState{
 public:
@@ -15,8 +15,11 @@ public:
 
 	void Update(const sf::Time& time);
 	void Draw();
+
 private:
+	sf::Vector2u windowSize;
 	sf::Font font;
 	sf::Text text;
-	float elapsed;
+
+	void BackToMainMenu(EventDetails* details);
 };

@@ -21,5 +21,4 @@ private:
 	sf::Vector2u windowSize;
 	sf::Font font;
 	sf::Text text;
-	sf::RectangleShape rect;
 };
