@@ -49,6 +49,5 @@ void State_GameOver::Draw(){
 void State_GameOver::BackToMainMenu(EventDetails* details)
 {
 	stateMgr->Remove(StateType::Game);
-	stateMgr->Remove(StateType::GameOver);
 	stateMgr->SwitchTo(StateType::MainMenu);
 }

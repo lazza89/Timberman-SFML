@@ -32,10 +32,13 @@ void State_Game::OnCreate() {
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
 	evMgr->AddCallback(StateType::Game, "Key_Left", &State_Game::MoveLeftAndChop, this);
 	evMgr->AddCallback(StateType::Game, "Key_Right", &State_Game::MoveRightAndChop, this);
+	evMgr->AddCallback(StateType::Game, "Key_P", &State_Game::Pause, this);
+
 }
 
 void State_Game::OnDestroy() {
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
+	evMgr->RemoveCallback(StateType::Game, "Key_P");
 	evMgr->RemoveCallback(StateType::Game, "Key_Escape");
 	evMgr->RemoveCallback(StateType::Game, "Key_Left");
 	evMgr->RemoveCallback(StateType::Game, "Key_Right");

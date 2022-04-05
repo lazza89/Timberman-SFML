@@ -1,6 +1,6 @@
 #include "Game.h"
 Game::Game() :
-	window("Chapter 5", sf::Vector2u(1280, 720)), 
+	window("GANG", sf::Vector2u(1280, 720)), 
 	stateManager(&context)
 {
 	clock.restart();

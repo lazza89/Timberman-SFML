@@ -16,33 +16,35 @@ void State_Paused::OnCreate(){
 	stateMgr->GetContext()->fontManager->RequireResource("Main");
 	text.setFont(*stateMgr->GetContext()->fontManager->GetResource("Main"));
 	text.setFillColor(sf::Color::Black);
-	text.setString(sf::String("Game Over!"));
+	text.setString(sf::String("PAUSED"));
 	text.setCharacterSize(45);
 	text.setStyle(sf::Text::Bold);
-
 
 	sf::FloatRect textRect = text.getLocalBounds();
 	text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 	text.setPosition(windowSize.x / 2.0f, windowSize.y / 2.0f);
 
+	rect.setSize(sf::Vector2f(windowSize));
+	rect.setPosition(0, 0);
+	rect.setFillColor(sf::Color(0, 0, 0, 150));
+
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
-	evMgr->AddCallback(StateType::Paused,"Key_Space",&State_Paused::Unpause,this);
+	evMgr->AddCallback(StateType::Paused,"Key_P",&State_Paused::Unpause,this);
 }
 
 void State_Paused::OnDestroy(){
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
-	evMgr->RemoveCallback(StateType::Paused,"Key_Space");
+	evMgr->RemoveCallback(StateType::Paused,"Key_P");
 }
 
 void State_Paused::Draw(){
-	sf::RenderWindow* wind = stateMgr->GetContext()->window->GetRenderWindow();
-	wind->draw(text);
+	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
+	window->draw(rect);
+	window->draw(text);
 }
 
 void State_Paused::Unpause(EventDetails* details){
-	stateMgr->Remove(StateType::Game);
-	stateMgr->Remove(StateType::Paused);
-	stateMgr->SwitchTo(StateType::MainMenu); 
+	stateMgr->SwitchTo(StateType::Game);
 }
 
 void State_Paused::Activate(){}
