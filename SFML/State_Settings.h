@@ -27,10 +27,12 @@ private:
 	tgui::Button::Ptr exitButton;
 	tgui::ComboBox::Ptr resolutionBox;
 	tgui::Label::Ptr resolutionLabel;
+	tgui::Button::Ptr saveButton;
 
 	std::string stringRes;
 
 	void BackToMainMenu();
 	void ChangedResolution();
+	void SaveSettings();
 };
 

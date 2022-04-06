@@ -5,6 +5,7 @@
 #include "Bee.h"
 #include "Cloud.h"
 #include "PlayerGameHandler.h"
+#include "ScoreHandler.h"
 
 class State_Game : public BaseState{
 public:
@@ -29,7 +30,9 @@ public:
 
 private:
 	sf::Sprite background;
+	sf::Sprite trees;
 	PlayerGameHandler playerGame;
+	ScoreHandler score;
 
 	std::vector <std::unique_ptr<Bee>> beeVector;
 	std::vector <std::unique_ptr<Cloud>> cloudVector;

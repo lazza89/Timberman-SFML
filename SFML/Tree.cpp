@@ -13,7 +13,7 @@ Tree::Tree(StateManager* manager) :
 	sf::Vector2f branchPos(sprite.getPosition().x, 0);
 	for (int i = 0; i < 5; i++) {
 		branchVector.push_back(std::make_unique<Branch>(stateMgr, branchPos));
-		branchPos += sf::Vector2f(0, 100);
+		branchPos += sf::Vector2f(0, 110);
 	}
 }
 
@@ -54,7 +54,7 @@ void Tree::Chop()
 {
 	branchVector.pop_back();
 	for (auto& itr : branchVector) {
-		itr->SetPosition(itr->GetPosition() + sf::Vector2f(0, 100));
+		itr->SetPosition(itr->GetPosition() + sf::Vector2f(0, 110));
 	}
 	branchVector.push_front(std::make_unique<Branch>(stateMgr, sf::Vector2f(sprite.getPosition().x, 0)));	
 }

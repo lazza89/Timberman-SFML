@@ -3,38 +3,51 @@
 
 State_GameOver::State_GameOver(StateManager* stateManager) : 
 	BaseState(stateManager),
-	elapsed(0)
-{}
+	windowSize(1920, 1080)
+{
+	view.reset(sf::FloatRect(0, 0, 1920, 1080));
+	view.setViewport(sf::FloatRect(0, 0, 1, 1));
+}
 
 State_GameOver::~State_GameOver(){}
 
 void State_GameOver::OnCreate(){
-	elapsed = 0;
-	font.loadFromFile("Resources/KOMIKAP_.ttf");
-	text.setFont(font);
-	text.setCharacterSize(16);
-	text.setString("You are dead");
-	text.setFillColor(sf::Color::White);
-	text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
-	text.setPosition(stateMgr->GetContext()->window->GetRenderWindow()->getSize().x * 0.5, stateMgr->GetContext()->window->GetRenderWindow()->getSize().y * 0.5);
+	SetTransparent(true); // Set our transparency flag.
+	stateMgr->GetContext()->fontManager->RequireResource("Main");
+	text.setFont(*stateMgr->GetContext()->fontManager->GetResource("Main"));
+	text.setFillColor(sf::Color::Black);
+	text.setString(sf::String("Game Over!"));
+	text.setCharacterSize(45);
+	text.setStyle(sf::Text::Bold);
 
-	stateMgr->Remove(StateType::Game);
+
+	sf::FloatRect textRect = text.getLocalBounds();
+	text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	text.setPosition(windowSize.x / 2.0f, windowSize.y / 2.0f);
+
+	EventManager* evMgr = stateMgr->GetContext()->eventManager;
+	evMgr->AddCallback(StateType::GameOver, "Key_Space", &State_GameOver::BackToMainMenu, this);
 }
 
-void State_GameOver::OnDestroy(){}
+void State_GameOver::OnDestroy(){
+	EventManager* evMgr = stateMgr->GetContext()->eventManager;
+	evMgr->RemoveCallback(StateType::Paused, "Key_Space");
+}
 
 void State_GameOver::Activate(){}
 void State_GameOver::Deactivate(){}
 
 void State_GameOver::Update(const sf::Time& time){
-	elapsed += time.asSeconds();
-	if(elapsed >= 5.0f){
-		stateMgr->Remove(StateType::GameOver);
-		stateMgr->SwitchTo(StateType::MainMenu);
-	}
+
 }
 
 void State_GameOver::Draw(){
 	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
 	window->draw(text);
+}
+
+void State_GameOver::BackToMainMenu(EventDetails* details)
+{
+	stateMgr->Remove(StateType::Game);
+	stateMgr->SwitchTo(StateType::MainMenu);
 }

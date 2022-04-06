@@ -3,7 +3,8 @@
 
 State_Game::State_Game(StateManager* stateManager) :
 	BaseState(stateManager),
-	playerGame(stateManager)
+	playerGame(stateManager),
+	score(stateManager)
 {
 	view.reset(sf::FloatRect(0, 0, 1920, 1080));
 	view.setViewport(sf::FloatRect(0, 0, 1, 1));
@@ -24,25 +25,31 @@ void State_Game::OnCreate() {
 	stateMgr->GetContext()->textureManager->RequireResource("background");
 	background.setTexture(*stateMgr->GetContext()->textureManager->GetResource("background"));
 
+	stateMgr->GetContext()->textureManager->RequireResource("trees");
+	trees.setTexture(*stateMgr->GetContext()->textureManager->GetResource("trees"));
+
 	sf::Vector2f targeSize = view.getSize();
 	background.setScale(targeSize.x / background.getLocalBounds().width, targeSize.y / background.getLocalBounds().height);
+	trees.setScale(targeSize.x / background.getLocalBounds().width, targeSize.y / background.getLocalBounds().height);
 
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
-	evMgr->AddCallback(StateType::Game, "Key_P", &State_Game::Pause, this);
 	evMgr->AddCallback(StateType::Game, "Key_Left", &State_Game::MoveLeftAndChop, this);
 	evMgr->AddCallback(StateType::Game, "Key_Right", &State_Game::MoveRightAndChop, this);
+	evMgr->AddCallback(StateType::Game, "Key_P", &State_Game::Pause, this);
+
 }
 
 void State_Game::OnDestroy() {
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
-	evMgr->RemoveCallback(StateType::Game, "Key_Escape");
 	evMgr->RemoveCallback(StateType::Game, "Key_P");
+	evMgr->RemoveCallback(StateType::Game, "Key_Escape");
 	evMgr->RemoveCallback(StateType::Game, "Key_Left");
 	evMgr->RemoveCallback(StateType::Game, "Key_Right");
 }
 
 void State_Game::Update(const sf::Time& time) {
+	score.Update(time);
 
 	if (playerGame.IsDead()) {
 		stateMgr->SwitchTo(StateType::GameOver);
@@ -58,14 +65,18 @@ void State_Game::Update(const sf::Time& time) {
 }
 
 void State_Game::Draw() {
-	stateMgr->GetContext()->window->GetRenderWindow()->draw(background);
+	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
+
+	window->draw(background);
 	for (auto& itr : cloudVector) {
 		itr->Draw();
 	}
+	window->draw(trees);
 	playerGame.Draw();
 	for (auto& itr : beeVector) {
 		itr->Draw();
 	}
+	score.Draw();
 }
 
 void State_Game::MainMenu(EventDetails* details) {
@@ -79,17 +90,16 @@ void State_Game::Pause(EventDetails* details) {
 void State_Game::MoveLeftAndChop(EventDetails* details)
 {
 	playerGame.ChopLeft();
+	score.AddScore(1);
 }
 
 void State_Game::MoveRightAndChop(EventDetails* details)
 {
 	playerGame.ChopRight();
+	score.AddScore(1);
 }
 
 void State_Game::Activate() {
-	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getSize().x << "\n";
-	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getDefaultView().getSize().x << "\n";
-	//std::cout << stateMgr->GetContext()->window->GetRenderWindow()->getView().getSize().x << "\n";
 
 }
 void State_Game::Deactivate() {
