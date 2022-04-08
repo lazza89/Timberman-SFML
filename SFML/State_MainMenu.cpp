@@ -74,6 +74,13 @@ void State_MainMenu::Activate() {
 	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
 	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
 	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
+
+	if (stateMgr->HasState(StateType::Game)) {
+		playButton->setText("Resume");
+	}
+	else {
+		playButton->setText("Play");
+	}
 }
 
 void State_MainMenu::Deactivate() {
