@@ -37,11 +37,9 @@ void Tree::Update(const sf::Time& deltaTime){
 	for (auto& itr : logList) {
 		itr.Update(deltaTime);
 	}
-	std::cout << logList.size() << "\n";
 
 	logLifeTime += deltaTime.asSeconds();
 	if (logLifeTime > 3) {
-		std::cout << "deleting coming" << "\n";
 		for (std::list<FlyingLog>::iterator itr = logList.begin(); itr != logList.end(); itr++) {
 			if (itr->CanBeDeleted()) {
 				logList.erase(itr);
