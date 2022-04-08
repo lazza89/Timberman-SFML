@@ -12,17 +12,21 @@ Branch::Branch(StateManager* manager, const sf::Vector2f& pos) :
 	//random direction
 	std::random_device rd;
 	std::mt19937 mt(rd());
-	std::uniform_int_distribution<int> randomPos(0, 1);
+	std::uniform_int_distribution<int> randomPos(0, 2);
 	if (randomPos(mt) == static_cast<int>(BranchDirection::Left)) {
 		direction = BranchDirection::Left;
-	} else {
+	} else if(randomPos(mt) == static_cast<int>(BranchDirection::Right)) {
 		direction = BranchDirection::Right;
+	} else {
+		direction = BranchDirection::None;
 	}
 	
 	if (direction == BranchDirection::Left) {
 		sprite.setScale(-0.8, 0.8);
-	} else {
+	} else if(direction == BranchDirection::Right){
 		sprite.setScale(0.8, 0.8);
+	} else {
+		sprite.setScale(0, 0);
 	}
 
 	sprite.setPosition(pos);

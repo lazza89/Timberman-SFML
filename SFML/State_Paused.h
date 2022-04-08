@@ -18,7 +18,8 @@ public:
 
 	void Unpause(EventDetails* details);
 private:
+	sf::Vector2u windowSize;
+	sf::RectangleShape rect;
 	sf::Font font;
 	sf::Text text;
-	sf::RectangleShape rect;
 };

@@ -27,12 +27,14 @@
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Directions.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="FlyingLog.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerGameHandler.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ScoreHandler.h" />
     <ClInclude Include="SharedContext.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="StateManager.h" />
@@ -53,10 +55,12 @@
     <ClCompile Include="Branch.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FlyingLog.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerGameHandler.cpp" />
+    <ClCompile Include="ScoreHandler.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="State_Game.cpp" />

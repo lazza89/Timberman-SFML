@@ -4,7 +4,8 @@
 
 enum class BranchDirection {
 	Left,
-	Right
+	Right,
+	None
 };
 
 class Branch : public GameObject

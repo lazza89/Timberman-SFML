@@ -18,10 +18,12 @@ public:
 
 	void SetPosition(const sf::Vector2f& pos, PlayerDirection direction);
 	PlayerDirection GetDirection();
+	void Dead();
 
 private:
 	Window* window;
 	sf::Sprite sprite;
+	sf::Sprite ripSprite;
 
 	PlayerDirection direction;
 

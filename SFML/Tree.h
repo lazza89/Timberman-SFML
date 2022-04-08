@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Branch.h"
+#include "FlyingLog.h"
 #include <memory>
 #include <list>
 
@@ -17,12 +18,16 @@ public:
 	sf::Vector2f GetBaseTreePos();
 	BranchDirection GetFirstBranchDirection();
 	const std::list<std::unique_ptr<Branch>>& GetBranchVector();
-	void Chop();
+	void ChopLeft();
+	void ChopRight();
 
 private:
 	Window* window;
 	sf::Sprite sprite;
 
+	void Chop();
+	std::list<FlyingLog> logList;
+	float logLifeTime;
 	std::list<std::unique_ptr<Branch>> branchVector;
 };
 

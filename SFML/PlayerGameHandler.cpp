@@ -23,7 +23,7 @@ void PlayerGameHandler::Draw()
 
 void PlayerGameHandler::Update(const sf::Time& deltaTime)
 {
-
+	tree.Update(deltaTime);
 }
 
 void PlayerGameHandler::ChopLeft()
@@ -31,19 +31,21 @@ void PlayerGameHandler::ChopLeft()
 	player.SetPosition(tree.GetBaseTreePos() - sf::Vector2f(200, 100), PlayerDirection::Left);
 	if (tree.GetFirstBranchDirection() == BranchDirection::Left && player.GetDirection() == PlayerDirection::Left) {
 		std::cout << "dead" << std::endl;
+		player.Dead();
 		isDead = true;
 	}
-	tree.Chop();
+	tree.ChopLeft();
 }
 
 void PlayerGameHandler::ChopRight()
 {
 	player.SetPosition(tree.GetBaseTreePos() + sf::Vector2f(200, -100), PlayerDirection::Right);
 	if (tree.GetFirstBranchDirection() == BranchDirection::Right && player.GetDirection() == PlayerDirection::Right) {
+		player.Dead();
 		std::cout << "dead" << std::endl;
 		isDead = true;
 	}
-	tree.Chop();
+	tree.ChopRight();
 }
 
 bool PlayerGameHandler::IsDead()
