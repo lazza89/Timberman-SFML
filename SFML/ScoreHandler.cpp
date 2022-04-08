@@ -4,7 +4,9 @@
 ScoreHandler::ScoreHandler(StateManager* manager) : 
 	stateMgr(manager),
 	score(0),
-	time(sf::Time::Zero)
+	timeRectSize(400, 50),
+	timeShrink(65),
+	timesUp(false)
 {
 	//init texture
 	stateMgr->GetContext()->textureManager->RequireResource("scoreBoard");
@@ -17,33 +19,45 @@ ScoreHandler::ScoreHandler(StateManager* manager) :
 	scoreText.setFont(*stateMgr->GetContext()->fontManager->GetResource("Main"));
 	scoreText.setCharacterSize(35);
 	scoreText.setPosition(scoreRect.getPosition().x - scoreRect.getSize().x * 0.2, scoreRect.getPosition().y - scoreRect.getSize().y * 0.22);
-
-
 	scoreText.setString("Score: 0");
+
+	timeRect.setSize(timeRectSize);
+	timeRect.setOrigin(timeRect.getSize().x * 0.5, timeRect.getSize().y * 0.5);
+	timeRect.setPosition(scoreRect.getPosition().x, scoreRect.getPosition().y - 100);
+	timeRect.setFillColor(sf::Color::Green);
 }
 
 ScoreHandler::~ScoreHandler()
-{
-	//stateMgr->GetContext()->textureManager->ReleaseResource("scoreBoard");
-}
+{}
 
 void ScoreHandler::Draw()
 {
-	stateMgr->GetContext()->window->GetRenderWindow()->draw(scoreRect);
-	stateMgr->GetContext()->window->GetRenderWindow()->draw(scoreText);
+	sf::RenderWindow* window = stateMgr->GetContext()->window->GetRenderWindow();
+	window->draw(scoreRect);
+	window->draw(scoreText);
+	window->draw(timeRect);
 }
 
 void ScoreHandler::Update(const sf::Time& time)
 {
+	if(score != 0)
+		timeRectSize = sf::Vector2f(timeRectSize.x - timeShrink * time.asSeconds(), timeRectSize.y);
+	
+	timeRect.setSize(timeRectSize);
 	scoreText.setString("Score: " + std::to_string(score));
+	
+	if (timeRectSize.x <= 0) {
+		timesUp = true;
+	}
 }
 
 void ScoreHandler::AddScore(int n)
 {
 	score += n;
+	timeRectSize.x += 10;
 }
 
-void ScoreHandler::StartTime()
+bool ScoreHandler::isTimesUp()
 {
-	clock.restart();
+	return timesUp;
 }

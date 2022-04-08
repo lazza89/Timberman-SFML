@@ -39,15 +39,6 @@ void FlyingLog::Update(const sf::Time& time)
 	}
 }
 
-void FlyingLog::SetPosition(const sf::Vector2f& pos)
-{
-	log.setPosition(pos);
-}
-
-void FlyingLog::Launch(const LogDirection& dir)
-{
-	direction = dir;
-}
 
 bool FlyingLog::CanBeDeleted()
 {

@@ -13,19 +13,19 @@ public:
 	void Update(const sf::Time& time);
 
 	void AddScore(int n);
-	void StartTime();
-
-
+	bool isTimesUp();
 
 private:
 	StateManager* stateMgr;
-
-	sf::Clock clock;
-	sf::Time time;
 
 	sf::RectangleShape scoreRect;
 	unsigned int score;
 	sf::Text scoreText; //log chopped
 
+	sf::Vector2f timeRectSize;
+	sf::RectangleShape timeRect;
+	float timeShrink;
+
+	bool timesUp;
 };
 

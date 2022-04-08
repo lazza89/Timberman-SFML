@@ -14,8 +14,6 @@ public:
 
 	void Draw();
 	void Update(const sf::Time& time);
-	void SetPosition(const sf::Vector2f& pos);
-	void Launch(const LogDirection& dir);
 	bool CanBeDeleted();
 
 private:

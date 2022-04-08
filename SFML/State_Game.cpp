@@ -51,7 +51,7 @@ void State_Game::OnDestroy() {
 void State_Game::Update(const sf::Time& time) {
 	score.Update(time);
 
-	if (playerGame.IsDead()) {
+	if (playerGame.IsDead() || score.isTimesUp()) {
 		stateMgr->SwitchTo(StateType::GameOver);
 	}
 
