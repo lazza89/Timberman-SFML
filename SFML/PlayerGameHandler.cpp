@@ -23,7 +23,7 @@ void PlayerGameHandler::Draw()
 
 void PlayerGameHandler::Update(const sf::Time& deltaTime)
 {
-
+	tree.Update(deltaTime);
 }
 
 void PlayerGameHandler::ChopLeft()
@@ -34,7 +34,7 @@ void PlayerGameHandler::ChopLeft()
 		player.Dead();
 		isDead = true;
 	}
-	tree.Chop();
+	tree.ChopLeft();
 }
 
 void PlayerGameHandler::ChopRight()
@@ -45,7 +45,7 @@ void PlayerGameHandler::ChopRight()
 		std::cout << "dead" << std::endl;
 		isDead = true;
 	}
-	tree.Chop();
+	tree.ChopRight();
 }
 
 bool PlayerGameHandler::IsDead()
