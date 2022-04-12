@@ -12,6 +12,8 @@ State_MainMenu::State_MainMenu(StateManager* stateManager) :
 State_MainMenu::~State_MainMenu() {}
 
 void State_MainMenu::OnCreate() {	
+	stateMgr->GetContext()->soundManager->PlayMusic("Test", 100.f, true);
+
 	gui->setFont("Resources/KOMIKAP_.ttf");
 
 	playButton = tgui::Button::create();

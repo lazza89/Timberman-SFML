@@ -1,7 +1,8 @@
 #include "Game.h"
 Game::Game() :
 	window("GANG", sf::Vector2u(1280, 720)), 
-	stateManager(&context)
+	stateManager(&context),
+	soundManager(&audioManager)
 {
 	clock.restart();
 	srand(time(nullptr));
@@ -10,6 +11,10 @@ Game::Game() :
 	context.eventManager = window.GetEventManager();
 	context.textureManager = &textureManager;
 	context.fontManager = &fontManager;
+	context.audioManager = &audioManager;
+	context.soundManager = &soundManager;
+
+	systemManager.GetSystem<S_Sound>(System::Sound)->SetUp(&audioManager, &soundManager);
 
 	fontManager.RequireResource("Main");
 
@@ -26,6 +31,7 @@ Window* Game::GetWindow(){ return &window; }
 
 void Game::Update(){
 	window.Update();
+	soundManager.Update(elapsed.asSeconds());
 	stateManager.Update(elapsed);
 }
 
