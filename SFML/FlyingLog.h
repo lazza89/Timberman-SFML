@@ -14,7 +14,7 @@ public:
 
 	void Draw();
 	void Update(const sf::Time& time);
-	bool CanBeDeleted();
+	bool canBeDeleted;
 
 private:
 	sf::Sprite log;
@@ -22,6 +22,5 @@ private:
 	sf::Vector2f logSpeed;
 	float rotation;
 
-	bool canBeDeleted;
 };
 

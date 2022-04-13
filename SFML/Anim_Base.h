@@ -1,31 +1,32 @@
 #pragma once
 #include <string>
-class SpriteSheet;
-
 using Frame = unsigned int;
 
+class SpriteSheet;
 class Anim_Base{
 	friend class SpriteSheet;
 public:
 	Anim_Base();
 	virtual ~Anim_Base();
 
-	void SetSpriteSheet(SpriteSheet* sheet);
-	void SetFrame(Frame frame);
-	void SetStartFrame(Frame frame);
-	void SetEndFrame(Frame frame);
-	void SetFrameRow(Frame row);
-	void SetActionStart(Frame frame);
-	void SetActionEnd(Frame frame);
-	void SetFrameTime(float time);
-	void SetLooping(bool loop);
-	void SetName(const std::string& name);
+	void SetSpriteSheet(SpriteSheet* l_sheet);
+
+	bool SetFrame(Frame l_frame);
+	void SetStartFrame(Frame l_frame);
+	void SetEndFrame(Frame l_frame);
+	void SetFrameRow(unsigned int l_row);
+	void SetActionStart(Frame l_frame);
+	void SetActionEnd(Frame l_frame);
+	void SetFrameTime(float l_time);
+	void SetLooping(bool l_loop);
+	void SetName(const std::string& l_name);
 
 	SpriteSheet* GetSpriteSheet();
+
 	Frame GetFrame();
 	Frame GetStartFrame();
 	Frame GetEndFrame();
-	Frame GetFrameRow();
+	unsigned int GetFrameRow();
 	int GetActionStart();
 	int GetActionEnd();
 	float GetFrameTime();
@@ -33,6 +34,7 @@ public:
 	bool IsLooping();
 	bool IsPlaying();
 	bool IsInAction();
+	bool CheckMoved();
 	std::string GetName();
 
 	void Play();
@@ -40,31 +42,32 @@ public:
 	void Stop();
 	void Reset();
 
-	virtual void Update(const float& dT);
+	virtual void Update(float l_dT);
 
 	friend std::stringstream& operator >>(
-		std::stringstream& stream, Anim_Base& a)
+		std::stringstream& l_stream, Anim_Base& a)
 	{
-		a.ReadIn(stream);
-		return stream;
+		a.ReadIn(l_stream);
+		return l_stream;
 	}
 protected:
 	virtual void FrameStep() = 0;
 	virtual void CropSprite() = 0;
-	virtual void ReadIn(std::stringstream& stream) = 0;
+	virtual void ReadIn(std::stringstream& l_stream) = 0;
 
-	Frame frameCurrent;
-	Frame frameStart;
-	Frame frameEnd;
-	Frame frameRow;
-	int frameActionStart;
-	int frameActionEnd;
-	float frameTime;
-	float elapsedTime;
-	bool loop;
-	bool playing;
+	Frame m_frameCurrent;
+	Frame m_frameStart;
+	Frame m_frameEnd;
+	Frame m_frameRow;
+	int m_frameActionStart;
+	int m_frameActionEnd;
+	float m_frameTime;
+	float m_elapsedTime;
+	bool m_loop;
+	bool m_playing;
+	bool m_hasMoved;
 
-	std::string name;
+	std::string m_name;
 
-	SpriteSheet* spriteSheet;
+	SpriteSheet* m_spriteSheet;
 };

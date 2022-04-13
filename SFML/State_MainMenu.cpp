@@ -12,6 +12,14 @@ State_MainMenu::State_MainMenu(StateManager* stateManager) :
 State_MainMenu::~State_MainMenu() {}
 
 void State_MainMenu::OnCreate() {	
+	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
+	audioMgr->RequireResource("Test");
+	audioMgr->RequireResource("MainMenuButton");
+
+	for (int i = 0; i < 4; i++) {
+		soundVector.push_back(sf::Sound(*audioMgr->GetResource("MainMenuButton")));
+	}
+
 	gui->setFont("Resources/KOMIKAP_.ttf");
 
 	playButton = tgui::Button::create();
@@ -20,6 +28,7 @@ void State_MainMenu::OnCreate() {
 	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5)));
 	playButton->setText("Play");
 	playButton->setTextSize(20);
+	playButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 0);
 
 	settingsButton = tgui::Button::create();
 	settingsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
@@ -27,6 +36,7 @@ void State_MainMenu::OnCreate() {
 	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
 	settingsButton->setText("Settings");
 	settingsButton->setTextSize(20);
+	settingsButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 1);
 
 	creditsButton = tgui::Button::create();
 	creditsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
@@ -34,6 +44,7 @@ void State_MainMenu::OnCreate() {
 	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
 	creditsButton->setText("Credits");
 	creditsButton->setTextSize(20);
+	creditsButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 2);
 
 	quitButton = tgui::Button::create();
 	quitButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
@@ -41,6 +52,7 @@ void State_MainMenu::OnCreate() {
 	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
 	quitButton->setText("Quit");
 	quitButton->setTextSize(20);
+	quitButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 3);
 
 
 	//button signals
@@ -65,6 +77,7 @@ void State_MainMenu::OnDestroy() {
 }
 
 void State_MainMenu::Activate() {
+
 	playButton->setVisible(true);
 	settingsButton->setVisible(true);
 	quitButton->setVisible(true);
@@ -119,4 +132,9 @@ void State_MainMenu::Settings()
 
 void State_MainMenu::Credits()
 {
+}
+
+void State_MainMenu::PlayMenuSound(int i)
+{
+	soundVector[i].play();
 }

@@ -3,6 +3,7 @@
 #include "EventManager.h"
 #include "TGUI/TGUI.hpp"
 #include "Window.h"
+#include "SFML/Audio.hpp"
 
 class State_MainMenu : public BaseState{
 public:
@@ -27,9 +28,12 @@ private:
 	tgui::Button::Ptr settingsButton;
 	tgui::Button::Ptr creditsButton;
 
+	std::vector<sf::Sound> soundVector;
+
 	void PlayWithKeyboard(EventDetails* details);
 	void Play();
 	void Quit();
 	void Settings();
 	void Credits();
+	void PlayMenuSound(int i);
 };

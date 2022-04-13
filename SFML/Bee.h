@@ -3,7 +3,7 @@
 #include <random>
 #include "Window.h"
 
-enum class Direction {
+enum class BeeDirection {
 	Left,
 	Right
 };
@@ -24,7 +24,7 @@ private:
 	sf::Vector2u windowSize;
 
 	float speed;
-	Direction direction;
+	BeeDirection direction;
 
 	std::random_device rd;
 	std::mt19937 mt;
