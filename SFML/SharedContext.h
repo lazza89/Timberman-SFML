@@ -19,7 +19,8 @@ struct SharedContext {
 		audioManager(nullptr),
 		soundManager(nullptr),
 		entityManager(nullptr),
-		gameMap(nullptr)
+		gameMap(nullptr),
+		generalVolume(70)
 	{}
 
 	Window* window;
@@ -28,6 +29,7 @@ struct SharedContext {
 	FontManager* fontManager;
 	AudioManager* audioManager;
 	SoundManager* soundManager;
+	int generalVolume;
 	EntityManager* entityManager;
 	Map* gameMap;
 	DebugOverlay debugOverlay;

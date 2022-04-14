@@ -13,12 +13,9 @@ State_MainMenu::~State_MainMenu() {}
 
 void State_MainMenu::OnCreate() {	
 	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
-	audioMgr->RequireResource("Test");
-	audioMgr->RequireResource("MainMenuButton");
+	audioMgr->RequireResource("ButtonSound");
 
-	for (int i = 0; i < 4; i++) {
-		soundVector.push_back(sf::Sound(*audioMgr->GetResource("MainMenuButton")));
-	}
+	buttonClicked.setBuffer(*stateMgr->GetContext()->audioManager->GetResource("ButtonSound"));
 
 	gui->setFont("Resources/KOMIKAP_.ttf");
 
@@ -28,7 +25,6 @@ void State_MainMenu::OnCreate() {
 	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5)));
 	playButton->setText("Play");
 	playButton->setTextSize(20);
-	playButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 0);
 
 	settingsButton = tgui::Button::create();
 	settingsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
@@ -36,7 +32,6 @@ void State_MainMenu::OnCreate() {
 	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
 	settingsButton->setText("Settings");
 	settingsButton->setTextSize(20);
-	settingsButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 1);
 
 	creditsButton = tgui::Button::create();
 	creditsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
@@ -44,7 +39,6 @@ void State_MainMenu::OnCreate() {
 	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
 	creditsButton->setText("Credits");
 	creditsButton->setTextSize(20);
-	creditsButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 2);
 
 	quitButton = tgui::Button::create();
 	quitButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
@@ -52,13 +46,16 @@ void State_MainMenu::OnCreate() {
 	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
 	quitButton->setText("Quit");
 	quitButton->setTextSize(20);
-	quitButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 3);
-
 
 	//button signals
-	playButton->onPress(&State_MainMenu::Play, this);
+	playButton->onPress(&State_MainMenu::ChangeState, this, StateType::Game);
 	quitButton->onPress(&State_MainMenu::Quit, this);
-	settingsButton->onPress(&State_MainMenu::Settings, this);
+	settingsButton->onPress(&State_MainMenu::ChangeState, this, StateType::Settings);
+	creditsButton->onPress(&State_MainMenu::ChangeState, this, StateType::Credits);
+
+	playButton->onClick([&]() { buttonClicked.play();});
+	settingsButton->onClick([&]() { buttonClicked.play(); });
+	creditsButton->onClick([&]() { buttonClicked.play(); });
 
 	gui->add(playButton);
 	gui->add(settingsButton);
@@ -67,7 +64,6 @@ void State_MainMenu::OnCreate() {
 
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
 	evMgr->AddCallback(StateType::MainMenu, "Key_Space", &State_MainMenu::PlayWithKeyboard, this);
-
 }
 
 
@@ -77,6 +73,7 @@ void State_MainMenu::OnDestroy() {
 }
 
 void State_MainMenu::Activate() {
+	buttonClicked.setVolume(stateMgr->GetContext()->generalVolume);
 
 	playButton->setVisible(true);
 	settingsButton->setVisible(true);
@@ -107,34 +104,20 @@ void State_MainMenu::Draw() {
 	gui->draw();
 }
 
-void State_MainMenu::Update(const sf::Time& time) {
-}
-
-void State_MainMenu::Play()
-{
-	stateMgr->SwitchTo(StateType::Game);
-}
+void State_MainMenu::Update(const sf::Time& time) {}
 
 void State_MainMenu::PlayWithKeyboard(EventDetails* details)
 {
-	Play();
+	buttonClicked.play();
+	ChangeState(StateType::Game);
+}
+
+void State_MainMenu::ChangeState(const StateType& state)
+{
+	stateMgr->SwitchTo(state);
 }
 
 void State_MainMenu::Quit()
 {
 	stateMgr->GetContext()->window->Close();
-}
-
-void State_MainMenu::Settings()
-{
-	stateMgr->SwitchTo(StateType::Settings);
-}
-
-void State_MainMenu::Credits()
-{
-}
-
-void State_MainMenu::PlayMenuSound(int i)
-{
-	soundVector[i].play();
 }

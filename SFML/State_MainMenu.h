@@ -28,12 +28,9 @@ private:
 	tgui::Button::Ptr settingsButton;
 	tgui::Button::Ptr creditsButton;
 
-	std::vector<sf::Sound> soundVector;
+	sf::Sound buttonClicked;
 
 	void PlayWithKeyboard(EventDetails* details);
-	void Play();
+	void ChangeState(const StateType& state);
 	void Quit();
-	void Settings();
-	void Credits();
-	void PlayMenuSound(int i);
 };
