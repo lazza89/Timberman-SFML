@@ -18,14 +18,18 @@ void State_Settings::OnCreate()
 	sf::Vector2u windowPos = window->GetRenderWindow()->getSize();
 	
 	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
-	buttonSound.setBuffer(*stateMgr->GetContext()->audioManager->GetResource("ButtonSound"));
-	sliderSoundTest.setBuffer(*stateMgr->GetContext()->audioManager->GetResource("ButtonSound"));
+	audioMgr->RequireResource("ButtonSoundReversed");
 
-	exitButton = tgui::Button::create();
-	exitButton->setSize(150, 50);
-	exitButton->setPosition(50, windowPos.y * 0.9);
-	exitButton->setTextSize(22);
-	exitButton->setText("Back");
+	buttonSound.setBuffer(*audioMgr->GetResource("ButtonSound"));
+	backButtonSound.setBuffer(*audioMgr->GetResource("ButtonSoundReversed"));
+	backButtonSound.setVolume(stateMgr->GetContext()->generalVolume);
+	//sliderSoundTest.setBuffer(*stateMgr->GetContext()->audioManager->GetResource("ButtonSound"));
+
+	backButton = tgui::Button::create();
+	backButton->setSize(150, 50);
+	backButton->setPosition(50, windowPos.y * 0.9);
+	backButton->setTextSize(22);
+	backButton->setText("Back");
 
 	resolutionBox = tgui::ComboBox::create();
 	resolutionBox->addItem("1920 x 1080");
@@ -66,13 +70,13 @@ void State_Settings::OnCreate()
 	//volumeSlider->onFocus([&]() { sliderSoundTest.setVolume(volumeSlider->getValue()); sliderSoundTest.play(); });
 
 	//signals
-	exitButton->onPress(&State_Settings::BackToMainMenu, this);
+	backButton->onPress(&State_Settings::BackToMainMenu, this);
 	saveButton->onPress(&State_Settings::SaveSettings, this);
 
-	exitButton->onPress([&]() { buttonSound.play(); });
+	backButton->onPress([&]() { backButtonSound.play(); });
 	saveButton->onPress([&]() { buttonSound.play(); });
 
-	gui->add(exitButton);
+	gui->add(backButton);
 	gui->add(saveButton);
 	gui->add(resolutionBox);
 	gui->add(resolutionLabel);
@@ -86,7 +90,7 @@ void State_Settings::OnDestroy()
 
 void State_Settings::Activate()
 {
-	exitButton->setVisible(true);
+	backButton->setVisible(true);
 	saveButton->setVisible(true);
 	resolutionBox->setVisible(true);
 	resolutionLabel->setVisible(true);
@@ -96,7 +100,7 @@ void State_Settings::Activate()
 
 void State_Settings::Deactivate()
 {
-	exitButton->setVisible(false);
+	backButton->setVisible(false);
 	saveButton->setVisible(false);
 	resolutionBox->setVisible(false);
 	resolutionLabel->setVisible(false);
@@ -119,7 +123,7 @@ void State_Settings::BackToMainMenu()
 void State_Settings::ChangedResolution()
 {
 	sf::Vector2u windowPos = window->GetRenderWindow()->getSize();
-	exitButton->setPosition(50, windowPos.y * 0.9);
+	backButton->setPosition(50, windowPos.y * 0.9);
 	resolutionBox->setPosition(windowPos.x * 0.5, windowPos.y * 0.35);
 	resolutionLabel->setPosition(resolutionBox->getPosition().x, resolutionBox->getPosition().y - resolutionLabel->getSize().y - 70);
 	saveButton->setPosition(windowPos.x -200, windowPos.y * 0.9);
@@ -130,6 +134,7 @@ void State_Settings::ChangedResolution()
 void State_Settings::SaveSettings()
 {
 	buttonSound.setVolume(volumeSlider->getValue());
+	backButtonSound.setVolume(volumeSlider->getValue());
 	stateMgr->GetContext()->generalVolume = volumeSlider->getValue();
 
 	if (resolutionBox->getSelectedItem() != stringRes) {

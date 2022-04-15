@@ -36,4 +36,9 @@ private:
 
 	std::vector <std::unique_ptr<Bee>> beeVector;
 	std::vector <std::unique_ptr<Cloud>> cloudVector;
+
+	std::random_device rd;
+	std::mt19937 mt;
+	std::uniform_real_distribution<float> randomPitch;
+	sf::Sound logPopSound;
 };

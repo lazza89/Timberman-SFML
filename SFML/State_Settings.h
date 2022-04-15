@@ -25,7 +25,7 @@ private:
 	tgui::Gui* gui;
 	Window* window;
 
-	tgui::Button::Ptr exitButton;
+	tgui::Button::Ptr backButton;
 	tgui::ComboBox::Ptr resolutionBox;
 	tgui::Label::Ptr resolutionLabel;
 	tgui::Button::Ptr saveButton;
@@ -35,7 +35,8 @@ private:
 	std::string stringRes;
 
 	sf::Sound buttonSound;
-	sf::Sound sliderSoundTest;
+	sf::Sound backButtonSound;
+	//sf::Sound sliderSoundTest;
 
 	void BackToMainMenu();
 	void ChangedResolution();

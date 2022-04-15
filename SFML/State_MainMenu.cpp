@@ -14,7 +14,7 @@ State_MainMenu::~State_MainMenu() {}
 void State_MainMenu::OnCreate() {	
 	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
 	audioMgr->RequireResource("ButtonSound");
-
+	 
 	buttonClicked.setBuffer(*stateMgr->GetContext()->audioManager->GetResource("ButtonSound"));
 
 	gui->setFont("Resources/KOMIKAP_.ttf");

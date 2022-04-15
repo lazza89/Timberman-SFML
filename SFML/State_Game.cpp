@@ -4,7 +4,9 @@
 State_Game::State_Game(StateManager* stateManager) :
 	BaseState(stateManager),
 	playerGame(stateManager),
-	score(stateManager)
+	score(stateManager),
+	mt(rd()),
+	randomPitch(0.8f, 1.8f)
 {
 	view.reset(sf::FloatRect(0, 0, 1920, 1080));
 	view.setViewport(sf::FloatRect(0, 0, 1, 1));
@@ -13,6 +15,13 @@ State_Game::State_Game(StateManager* stateManager) :
 State_Game::~State_Game() {}
 
 void State_Game::OnCreate() {
+
+	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
+	audioMgr->RequireResource("Pop1");
+	audioMgr->RequireResource("Pop2");
+
+	logPopSound.setBuffer(*audioMgr->GetResource("Pop1"));
+	logPopSound.setPitch(randomPitch(mt));
 
 	for (int i = 0; i < 20; i++) {
 		beeVector.push_back(std::make_unique<Bee>(stateMgr));
@@ -91,16 +100,20 @@ void State_Game::MoveLeftAndChop(EventDetails* details)
 {
 	playerGame.ChopLeft();
 	score.AddScore(1);
+	logPopSound.setPitch(randomPitch(mt));
+	logPopSound.play();
 }
 
 void State_Game::MoveRightAndChop(EventDetails* details)
 {
 	playerGame.ChopRight();
 	score.AddScore(1);
+	logPopSound.setPitch(randomPitch(mt));
+	logPopSound.play();
 }
 
 void State_Game::Activate() {
-
+	logPopSound.setVolume(stateMgr->GetContext()->generalVolume);
 }
 void State_Game::Deactivate() {
 
