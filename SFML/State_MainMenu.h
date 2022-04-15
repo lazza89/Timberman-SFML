@@ -23,6 +23,8 @@ private:
 	tgui::Gui* gui;
 	Window* window;
 
+	sf::Sprite timbermanLogo;
+
 	tgui::Button::Ptr playButton;
 	tgui::Button::Ptr quitButton;
 	tgui::Button::Ptr settingsButton;

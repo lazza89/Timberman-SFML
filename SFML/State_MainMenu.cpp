@@ -11,7 +11,13 @@ State_MainMenu::State_MainMenu(StateManager* stateManager) :
 
 State_MainMenu::~State_MainMenu() {}
 
-void State_MainMenu::OnCreate() {	
+void State_MainMenu::OnCreate() {
+	TextureManager* textureMgr = stateMgr->GetContext()->textureManager;
+	textureMgr->RequireResource("logo");
+	timbermanLogo.setTexture(*textureMgr->GetResource("logo"));
+	timbermanLogo.setOrigin(timbermanLogo.getLocalBounds().width * 0.5, timbermanLogo.getLocalBounds().height * 0.5);
+	timbermanLogo.setPosition(window->GetRenderWindow()->getSize().x * 0.40, window->GetRenderWindow()->getSize().y * 0.3);
+
 	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
 	audioMgr->RequireResource("ButtonSound");
 	 
@@ -21,28 +27,28 @@ void State_MainMenu::OnCreate() {
 
 	playButton = tgui::Button::create();
 	playButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
-	playButton->setOrigin(sf::Vector2f(0.5, 0.5));
-	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5)));
+	playButton->setOrigin(0.5, 0.5);
+	playButton->setPosition(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5);
 	playButton->setText("Play");
 	playButton->setTextSize(20);
 
 	settingsButton = tgui::Button::create();
 	settingsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
-	settingsButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	settingsButton->setOrigin(0.5, 0.5);
 	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
 	settingsButton->setText("Settings");
 	settingsButton->setTextSize(20);
 
 	creditsButton = tgui::Button::create();
 	creditsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
-	creditsButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	creditsButton->setOrigin(0.5, 0.5);
 	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
 	creditsButton->setText("Credits");
 	creditsButton->setTextSize(20);
 
 	quitButton = tgui::Button::create();
 	quitButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
-	quitButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	quitButton->setOrigin(0.5, 0.5);
 	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
 	quitButton->setText("Quit");
 	quitButton->setTextSize(20);
@@ -101,6 +107,7 @@ void State_MainMenu::Deactivate() {
 }
 
 void State_MainMenu::Draw() {
+	window->GetRenderWindow()->draw(timbermanLogo);
 	gui->draw();
 }
 
