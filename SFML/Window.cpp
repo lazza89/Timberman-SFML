@@ -35,7 +35,7 @@ void Window::Create() {
 	window.create(sf::VideoMode(windowSize.x, windowSize.y, 32), windowTitle, style);
 }
 
-void Window::BeginDraw() { window.clear(sf::Color::Black); }
+void Window::BeginDraw() { window.clear(sf::Color(128, 64, 0)); }
 void Window::EndDraw() { window.display(); }
 
 bool Window::IsDone() { return isDone; }

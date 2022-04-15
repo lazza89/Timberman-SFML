@@ -41,4 +41,6 @@ private:
 	std::mt19937 mt;
 	std::uniform_real_distribution<float> randomPitch;
 	sf::Sound logPopSound;
+
+	sf::Sound deathSound;
 };

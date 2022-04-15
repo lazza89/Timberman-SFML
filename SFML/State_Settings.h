@@ -38,7 +38,7 @@ private:
 	sf::Sound backButtonSound;
 	//sf::Sound sliderSoundTest;
 
-	void BackToMainMenu();
+	void BackToMainMenu(EventDetails* event = nullptr);
 	void ChangedResolution();
 	void SaveSettings();
 };

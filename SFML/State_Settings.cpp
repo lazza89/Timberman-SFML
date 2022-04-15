@@ -70,7 +70,7 @@ void State_Settings::OnCreate()
 	//volumeSlider->onFocus([&]() { sliderSoundTest.setVolume(volumeSlider->getValue()); sliderSoundTest.play(); });
 
 	//signals
-	backButton->onPress(&State_Settings::BackToMainMenu, this);
+	backButton->onPress(&State_Settings::BackToMainMenu, this, nullptr);
 	saveButton->onPress(&State_Settings::SaveSettings, this);
 
 	backButton->onPress([&]() { backButtonSound.play(); });
@@ -82,6 +82,9 @@ void State_Settings::OnCreate()
 	gui->add(resolutionLabel);
 	gui->add(volumeSlider);
 	gui->add(volumeLabel);
+
+	EventManager* evMgr = stateMgr->GetContext()->eventManager;
+	evMgr->AddCallback(StateType::Settings, "Key_Escape", &State_Settings::BackToMainMenu, this);
 }
 
 void State_Settings::OnDestroy()
@@ -115,7 +118,7 @@ void State_Settings::Draw()
 	gui->draw();
 }
 
-void State_Settings::BackToMainMenu()
+void State_Settings::BackToMainMenu(EventDetails* event)
 {
 	stateMgr->SwitchTo(StateType::MainMenu);
 }

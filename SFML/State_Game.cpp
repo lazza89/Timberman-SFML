@@ -18,10 +18,12 @@ void State_Game::OnCreate() {
 
 	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
 	audioMgr->RequireResource("Pop1");
-	audioMgr->RequireResource("Pop2");
+	audioMgr->RequireResource("Death");
 
 	logPopSound.setBuffer(*audioMgr->GetResource("Pop1"));
 	logPopSound.setPitch(randomPitch(mt));
+
+	deathSound.setBuffer(*audioMgr->GetResource("Death"));
 
 	for (int i = 0; i < 20; i++) {
 		beeVector.push_back(std::make_unique<Bee>(stateMgr));
@@ -61,6 +63,7 @@ void State_Game::Update(const sf::Time& time) {
 	score.Update(time);
 
 	if (playerGame.IsDead() || score.isTimesUp()) {
+		deathSound.play();
 		stateMgr->SwitchTo(StateType::GameOver);
 	}
 
@@ -114,6 +117,7 @@ void State_Game::MoveRightAndChop(EventDetails* details)
 
 void State_Game::Activate() {
 	logPopSound.setVolume(stateMgr->GetContext()->generalVolume);
+	deathSound.setVolume(stateMgr->GetContext()->generalVolume);
 }
 void State_Game::Deactivate() {
 
