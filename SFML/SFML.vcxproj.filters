@@ -49,6 +49,15 @@
     <Filter Include="Source Files\Audio">
       <UniqueIdentifier>{1416d2e4-3140-4b62-a79b-08cc6007410e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\C">
+      <UniqueIdentifier>{5b32d4ee-fb5f-48fa-a467-02a0fc7e5e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\S">
+      <UniqueIdentifier>{28b798ce-7b5f-489d-ae42-990c194c1a40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\S">
+      <UniqueIdentifier>{1ea353f2-8ab1-4545-9ec4-0e370300163b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -69,7 +78,7 @@
     <ClInclude Include="State_GameOver.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="State_Intro.h">
+    <ClInclude Include="State_Credits.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="State_MainMenu.h">
@@ -144,44 +153,11 @@
     <ClInclude Include="C_SoundListener.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="C_Base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="S_Sound.h">
       <Filter>Header Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="System_Manager.h">
       <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Collidable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Drawable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Movable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_Position.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_SpriteSheet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="C_State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Anim_Base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Anim_Directional.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bitmask.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Communicator.h">
       <Filter>Header Files</Filter>
@@ -216,26 +192,59 @@
     <ClInclude Include="Observer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Anim_Directional.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Anim_Base.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Base.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Collidable.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Controller.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Drawable.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Movable.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="C_Position.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="C_SpriteSheet.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="C_State.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitmask.h">
+      <Filter>Header Files\C</Filter>
+    </ClInclude>
     <ClInclude Include="S_Base.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\S</Filter>
     </ClInclude>
     <ClInclude Include="S_Collision.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\S</Filter>
     </ClInclude>
     <ClInclude Include="S_Control.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\S</Filter>
     </ClInclude>
     <ClInclude Include="S_Movement.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\S</Filter>
     </ClInclude>
     <ClInclude Include="S_Renderer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\S</Filter>
     </ClInclude>
     <ClInclude Include="S_SheetAnimation.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\S</Filter>
     </ClInclude>
     <ClInclude Include="S_State.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\S</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,7 +269,7 @@
     <ClCompile Include="State_GameOver.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="State_Intro.cpp">
+    <ClCompile Include="State_Credits.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="State_MainMenu.cpp">
@@ -305,9 +314,6 @@
     <ClCompile Include="S_Sound.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="S_Base.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="System_Manager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
@@ -323,23 +329,26 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="S_Base.cpp">
+      <Filter>Source Files\S</Filter>
+    </ClCompile>
     <ClCompile Include="S_Collision.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\S</Filter>
     </ClCompile>
     <ClCompile Include="S_Control.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\S</Filter>
     </ClCompile>
     <ClCompile Include="S_Movement.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\S</Filter>
     </ClCompile>
     <ClCompile Include="S_Renderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\S</Filter>
     </ClCompile>
     <ClCompile Include="S_SheetAnimation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\S</Filter>
     </ClCompile>
     <ClCompile Include="S_State.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\S</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

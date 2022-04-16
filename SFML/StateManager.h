@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <unordered_map>
-#include "State_Intro.h"
+#include "State_Credits.h"
 #include "State_MainMenu.h"
 #include "State_Game.h"
 #include "State_Paused.h"
@@ -10,13 +10,13 @@
 #include "SharedContext.h"
 
 enum class StateType{ 
-	Intro = 1,
+	Credits = 1,
 	MainMenu,
 	Game,
 	Paused,
 	GameOver,
-	Settings,
-	Credits };
+	Settings
+};
 
 // State container.
 using StateContainer = std::vector<std::pair<StateType, BaseState*>>;
