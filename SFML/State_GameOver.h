@@ -18,8 +18,10 @@ public:
 
 private:
 	sf::Vector2u windowSize;
+	sf::Sprite textBackground;
 	sf::Font font;
 	sf::Text text;
+	sf::Text textSpace;
 
 	void BackToMainMenu(EventDetails* details);
 };

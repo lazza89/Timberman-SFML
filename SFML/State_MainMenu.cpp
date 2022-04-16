@@ -11,54 +11,57 @@ State_MainMenu::State_MainMenu(StateManager* stateManager) :
 
 State_MainMenu::~State_MainMenu() {}
 
-void State_MainMenu::OnCreate() {	
-	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
-	audioMgr->RequireResource("Test");
-	audioMgr->RequireResource("MainMenuButton");
+void State_MainMenu::OnCreate() {
+	TextureManager* textureMgr = stateMgr->GetContext()->textureManager;
+	textureMgr->RequireResource("logo");
+	timbermanLogo.setTexture(*textureMgr->GetResource("logo"));
+	timbermanLogo.setOrigin(timbermanLogo.getLocalBounds().width * 0.5, timbermanLogo.getLocalBounds().height * 0.5);
+	timbermanLogo.setPosition(window->GetRenderWindow()->getSize().x * 0.40, window->GetRenderWindow()->getSize().y * 0.3);
 
-	for (int i = 0; i < 4; i++) {
-		soundVector.push_back(sf::Sound(*audioMgr->GetResource("MainMenuButton")));
-	}
+	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
+	audioMgr->RequireResource("ButtonSound");
+	 
+	buttonClicked.setBuffer(*stateMgr->GetContext()->audioManager->GetResource("ButtonSound"));
 
 	gui->setFont("Resources/KOMIKAP_.ttf");
 
 	playButton = tgui::Button::create();
 	playButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
-	playButton->setOrigin(sf::Vector2f(0.5, 0.5));
-	playButton->setPosition(tgui::Layout2d(sf::Vector2f(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5)));
+	playButton->setOrigin(0.5, 0.5);
+	playButton->setPosition(window->GetRenderWindow()->getSize().x * 0.5, window->GetRenderWindow()->getSize().y * 0.5);
 	playButton->setText("Play");
 	playButton->setTextSize(20);
-	playButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 0);
 
 	settingsButton = tgui::Button::create();
 	settingsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
-	settingsButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	settingsButton->setOrigin(0.5, 0.5);
 	settingsButton->setPosition(tgui::Layout2d(playButton->getPosition().x, playButton->getPosition().y + 50));
 	settingsButton->setText("Settings");
 	settingsButton->setTextSize(20);
-	settingsButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 1);
 
 	creditsButton = tgui::Button::create();
 	creditsButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
-	creditsButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	creditsButton->setOrigin(0.5, 0.5);
 	creditsButton->setPosition(tgui::Layout2d(settingsButton->getPosition().x, settingsButton->getPosition().y + 50));
 	creditsButton->setText("Credits");
 	creditsButton->setTextSize(20);
-	creditsButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 2);
 
 	quitButton = tgui::Button::create();
 	quitButton->setSize(tgui::Layout2d(sf::Vector2f(200, 50)));
-	quitButton->setOrigin(sf::Vector2f(0.5, 0.5));
+	quitButton->setOrigin(0.5, 0.5);
 	quitButton->setPosition(tgui::Layout2d(creditsButton->getPosition().x, creditsButton->getPosition().y + 50));
 	quitButton->setText("Quit");
 	quitButton->setTextSize(20);
-	quitButton->onMouseEnter(&State_MainMenu::PlayMenuSound, this, 3);
-
 
 	//button signals
-	playButton->onPress(&State_MainMenu::Play, this);
+	playButton->onPress(&State_MainMenu::ChangeState, this, StateType::Game);
 	quitButton->onPress(&State_MainMenu::Quit, this);
-	settingsButton->onPress(&State_MainMenu::Settings, this);
+	settingsButton->onPress(&State_MainMenu::ChangeState, this, StateType::Settings);
+	creditsButton->onPress(&State_MainMenu::ChangeState, this, StateType::Credits);
+
+	playButton->onClick([&]() { buttonClicked.play();});
+	settingsButton->onClick([&]() { buttonClicked.play(); });
+	creditsButton->onClick([&]() { buttonClicked.play(); });
 
 	gui->add(playButton);
 	gui->add(settingsButton);
@@ -67,7 +70,6 @@ void State_MainMenu::OnCreate() {
 
 	EventManager* evMgr = stateMgr->GetContext()->eventManager;
 	evMgr->AddCallback(StateType::MainMenu, "Key_Space", &State_MainMenu::PlayWithKeyboard, this);
-
 }
 
 
@@ -77,6 +79,7 @@ void State_MainMenu::OnDestroy() {
 }
 
 void State_MainMenu::Activate() {
+	buttonClicked.setVolume(stateMgr->GetContext()->generalVolume);
 
 	playButton->setVisible(true);
 	settingsButton->setVisible(true);
@@ -104,37 +107,24 @@ void State_MainMenu::Deactivate() {
 }
 
 void State_MainMenu::Draw() {
+	window->GetRenderWindow()->draw(timbermanLogo);
 	gui->draw();
 }
 
-void State_MainMenu::Update(const sf::Time& time) {
-}
-
-void State_MainMenu::Play()
-{
-	stateMgr->SwitchTo(StateType::Game);
-}
+void State_MainMenu::Update(const sf::Time& time) {}
 
 void State_MainMenu::PlayWithKeyboard(EventDetails* details)
 {
-	Play();
+	buttonClicked.play();
+	ChangeState(StateType::Game);
+}
+
+void State_MainMenu::ChangeState(const StateType& state)
+{
+	stateMgr->SwitchTo(state);
 }
 
 void State_MainMenu::Quit()
 {
 	stateMgr->GetContext()->window->Close();
-}
-
-void State_MainMenu::Settings()
-{
-	stateMgr->SwitchTo(StateType::Settings);
-}
-
-void State_MainMenu::Credits()
-{
-}
-
-void State_MainMenu::PlayMenuSound(int i)
-{
-	soundVector[i].play();
 }

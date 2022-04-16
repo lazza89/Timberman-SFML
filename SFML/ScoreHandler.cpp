@@ -53,8 +53,11 @@ void ScoreHandler::Update(const sf::Time& time)
 
 void ScoreHandler::AddScore(int n)
 {
+	if (timeRectSize.x < 400) {
+		timeRectSize.x += 10;
+	}
+
 	score += n;
-	timeRectSize.x += 10;
 }
 
 bool ScoreHandler::isTimesUp()
