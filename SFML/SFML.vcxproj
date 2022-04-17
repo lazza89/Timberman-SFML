@@ -65,7 +65,7 @@
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="State_Game.h" />
     <ClInclude Include="State_GameOver.h" />
-    <ClInclude Include="State_Intro.h" />
+    <ClInclude Include="State_Credits.h" />
     <ClInclude Include="State_MainMenu.h" />
     <ClInclude Include="State_Paused.h" />
     <ClInclude Include="State_Settings.h" />
@@ -102,7 +102,7 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="State_Game.cpp" />
     <ClCompile Include="State_GameOver.cpp" />
-    <ClCompile Include="State_Intro.cpp" />
+    <ClCompile Include="State_Credits.cpp" />
     <ClCompile Include="State_MainMenu.cpp" />
     <ClCompile Include="State_Paused.cpp" />
     <ClCompile Include="State_Settings.cpp" />
