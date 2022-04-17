@@ -25,7 +25,7 @@ void State_Game::OnCreate() {
 
 	deathSound.setBuffer(*audioMgr->GetResource("Death"));
 
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < 4; i++) {
 		beeVector.push_back(std::make_unique<Bee>(stateMgr));
 	}
 	for (int i = 0; i < 3; i++) {
