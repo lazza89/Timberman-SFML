@@ -8,7 +8,7 @@ Bee::Bee(StateManager* manager) :
 	randomPos(1, 10),
 	randomSpeed(100, 250),
 	randomDirection(0, 1),
-	direction(Direction::Left),
+	direction(BeeDirection::Left),
 	speed(200)
 {
 	window = stateMgr->GetContext()->window;
@@ -33,7 +33,7 @@ void Bee::Draw() {
 }
 
 void Bee::Update(const sf::Time& deltaTime) {
-	if (direction == Direction::Left) {
+	if (direction == BeeDirection::Left) {
 		sprite.setPosition(sf::Vector2f(sprite.getPosition().x + speed * deltaTime.asSeconds(), sprite.getPosition().y));
 		if (sprite.getPosition().x > windowSize.x + sprite.getGlobalBounds().width * 0.5) {
 			SetRandomPosition();
@@ -49,14 +49,14 @@ void Bee::Update(const sf::Time& deltaTime) {
 
 void Bee::SetRandomPosition()
 {
-	if (randomDirection(mt) == static_cast<int>(Direction::Left)) {
-		direction = Direction::Left;
+	if (randomDirection(mt) == static_cast<int>(BeeDirection::Left)) {
+		direction = BeeDirection::Left;
 		sprite.setPosition(sf::Vector2f(-(sprite.getGlobalBounds().width * 0.5), randomPos(mt)));
 		speed = randomSpeed(mt);
 		sprite.setScale(2, 2);
 	}
 	else {
-		direction = Direction::Right;
+		direction = BeeDirection::Right;
 		sprite.setPosition(sf::Vector2f(sprite.getGlobalBounds().width * 0.5 + windowSize.x, randomPos(mt)));
 		speed = randomSpeed(mt);
 		sprite.setScale(-2, 2);
@@ -65,14 +65,14 @@ void Bee::SetRandomPosition()
 
 void Bee::InitRandomPosition()
 {
-	if (randomDirection(mt) == static_cast<int>(Direction::Left)) {
-		direction = Direction::Left;
+	if (randomDirection(mt) == static_cast<int>(BeeDirection::Left)) {
+		direction = BeeDirection::Left;
 		sprite.setPosition(initRandomPos(mt), randomPos(mt));
 		speed = randomSpeed(mt);
 		sprite.setScale(2, 2);
 	}
 	else {
-		direction = Direction::Right;
+		direction = BeeDirection::Right;
 		sprite.setPosition(initRandomPos(mt), randomPos(mt));
 		speed = randomSpeed(mt);
 		sprite.setScale(-2, 2);

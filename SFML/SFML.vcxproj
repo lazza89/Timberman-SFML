@@ -21,29 +21,63 @@
   <ItemGroup>
     <ClInclude Include="Anim_Base.h" />
     <ClInclude Include="Anim_Directional.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BaseState.h" />
     <ClInclude Include="Bee.h" />
+    <ClInclude Include="Bitmask.h" />
     <ClInclude Include="Branch.h" />
     <ClInclude Include="Cloud.h" />
+    <ClInclude Include="Communicator.h" />
+    <ClInclude Include="C_Base.h" />
+    <ClInclude Include="C_Collidable.h" />
+    <ClInclude Include="C_Controller.h" />
+    <ClInclude Include="C_Drawable.h" />
+    <ClInclude Include="C_Movable.h" />
+    <ClInclude Include="C_Position.h" />
+    <ClInclude Include="C_SoundEmitter.h" />
+    <ClInclude Include="C_SoundListener.h" />
+    <ClInclude Include="C_SpriteSheet.h" />
+    <ClInclude Include="C_State.h" />
+    <ClInclude Include="DebugOverlay.h" />
     <ClInclude Include="Directions.h" />
+    <ClInclude Include="ECS_Types.h" />
+    <ClInclude Include="EntityEvents.h" />
+    <ClInclude Include="EntityMessages.h" />
+    <ClInclude Include="Entity_Manager.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="Event_Queue.h" />
     <ClInclude Include="FlyingLog.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="MessageHandler.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerGameHandler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ScoreHandler.h" />
     <ClInclude Include="SharedContext.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="SoundProps.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="State_Game.h" />
     <ClInclude Include="State_GameOver.h" />
-    <ClInclude Include="State_Intro.h" />
+    <ClInclude Include="State_Credits.h" />
     <ClInclude Include="State_MainMenu.h" />
     <ClInclude Include="State_Paused.h" />
     <ClInclude Include="State_Settings.h" />
+    <ClInclude Include="System_Manager.h" />
+    <ClInclude Include="S_Base.h" />
+    <ClInclude Include="S_Collision.h" />
+    <ClInclude Include="S_Control.h" />
+    <ClInclude Include="S_Movement.h" />
+    <ClInclude Include="S_Renderer.h" />
+    <ClInclude Include="S_SheetAnimation.h" />
+    <ClInclude Include="S_Sound.h" />
+    <ClInclude Include="S_State.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Window.h" />
@@ -54,21 +88,33 @@
     <ClCompile Include="Bee.cpp" />
     <ClCompile Include="Branch.cpp" />
     <ClCompile Include="Cloud.cpp" />
+    <ClCompile Include="Entity_Manager.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FlyingLog.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerGameHandler.cpp" />
     <ClCompile Include="ScoreHandler.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="State_Game.cpp" />
     <ClCompile Include="State_GameOver.cpp" />
-    <ClCompile Include="State_Intro.cpp" />
+    <ClCompile Include="State_Credits.cpp" />
     <ClCompile Include="State_MainMenu.cpp" />
     <ClCompile Include="State_Paused.cpp" />
     <ClCompile Include="State_Settings.cpp" />
+    <ClCompile Include="System_Manager.cpp" />
+    <ClCompile Include="S_Base.cpp" />
+    <ClCompile Include="S_Collision.cpp" />
+    <ClCompile Include="S_Control.cpp" />
+    <ClCompile Include="S_Movement.cpp" />
+    <ClCompile Include="S_Renderer.cpp" />
+    <ClCompile Include="S_SheetAnimation.cpp" />
+    <ClCompile Include="S_Sound.cpp" />
+    <ClCompile Include="S_State.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -83,26 +129,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -176,10 +222,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\TGUI-0.9x64\include;$(SolutionDir)\SFML-2.5.1x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\TGUI-0.9x64\lib;$(SolutionDir)\SFML-2.5.1x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;sfml-audio-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -190,12 +239,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.5.1x64\include;$(SolutionDir)\TGUI-0.9x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;sfml-audio.lib;%(AdditionalDependencies);tgui.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\TGUI-0.9x64\lib;$(SolutionDir)\SFML-2.5.1x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

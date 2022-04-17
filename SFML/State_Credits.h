@@ -2,10 +2,10 @@
 #include "BaseState.h"
 #include "EventManager.h"
 
-class State_Intro : public BaseState{
+class State_Credits : public BaseState{
 public:
-	State_Intro(StateManager* stateManager);
-	~State_Intro();
+	State_Credits(StateManager* stateManager);
+	~State_Credits();
 
 	void OnCreate();
 	void OnDestroy();
@@ -18,10 +18,10 @@ public:
 
 	void Continue(EventDetails* details);
 private:
-	sf::Texture introTexture;
-	sf::Sprite introSprite;
-	sf::Font font;
+	sf::Sprite creditsSprite;
+	sf::Sprite tgui;
+	sf::Sprite sfml;
 	sf::Text text;
-
-	float timePassed;
+	sf::Text exitText;
+	sf::Vector2u windowSize;
 };

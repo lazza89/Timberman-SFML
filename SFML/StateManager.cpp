@@ -3,7 +3,7 @@
 StateManager::StateManager(SharedContext* shared)
 	: shared(shared)
 {
-	RegisterState<State_Intro>(StateType::Intro);
+	RegisterState<State_Credits>(StateType::Credits);
 	RegisterState<State_MainMenu>(StateType::MainMenu);
 	RegisterState<State_Game>(StateType::Game);
 	RegisterState<State_Paused>(StateType::Paused);
@@ -83,6 +83,7 @@ void StateManager::ProcessRequests(){
 
 void StateManager::SwitchTo(const StateType& type){
 	shared->eventManager->SetCurrentState(type);
+	shared->soundManager->ChangeState(type);
 
 	for (auto itr = states.begin();
 		itr != states.end(); ++itr)
@@ -129,6 +130,7 @@ void StateManager::RemoveState(const StateType& type){
 			itr->second->OnDestroy();
 			delete itr->second;
 			states.erase(itr);
+			shared->soundManager->RemoveState(type);
 			return;
 		}
 	}

@@ -4,6 +4,7 @@
 #include "Window.h"
 #include <TGUI/TGUI.hpp>
 #include <memory>
+#include "SFML/Audio.hpp"
 
 class State_Settings : public BaseState
 {
@@ -24,14 +25,20 @@ private:
 	tgui::Gui* gui;
 	Window* window;
 
-	tgui::Button::Ptr exitButton;
+	tgui::Button::Ptr backButton;
 	tgui::ComboBox::Ptr resolutionBox;
 	tgui::Label::Ptr resolutionLabel;
 	tgui::Button::Ptr saveButton;
+	tgui::Slider::Ptr volumeSlider;
+	tgui::Label::Ptr volumeLabel;
 
 	std::string stringRes;
 
-	void BackToMainMenu();
+	sf::Sound buttonSound;
+	sf::Sound backButtonSound;
+	//sf::Sound sliderSoundTest;
+
+	void BackToMainMenu(EventDetails* event = nullptr);
 	void ChangedResolution();
 	void SaveSettings();
 };

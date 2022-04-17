@@ -16,13 +16,20 @@ State_Settings::~State_Settings(){}
 void State_Settings::OnCreate()
 {
 	sf::Vector2u windowPos = window->GetRenderWindow()->getSize();
+	
+	AudioManager* audioMgr = stateMgr->GetContext()->audioManager;
+	audioMgr->RequireResource("ButtonSoundReversed");
 
-	exitButton = tgui::Button::create();
-	exitButton->setSize(150, 50);
-	exitButton->setPosition(50, windowPos.y * 0.9);
-	exitButton->onPress(&State_Settings::BackToMainMenu, this);
-	exitButton->setTextSize(22);
-	exitButton->setText("Back");
+	buttonSound.setBuffer(*audioMgr->GetResource("ButtonSound"));
+	backButtonSound.setBuffer(*audioMgr->GetResource("ButtonSoundReversed"));
+	backButtonSound.setVolume(stateMgr->GetContext()->generalVolume);
+	//sliderSoundTest.setBuffer(*stateMgr->GetContext()->audioManager->GetResource("ButtonSound"));
+
+	backButton = tgui::Button::create();
+	backButton->setSize(150, 50);
+	backButton->setPosition(50, windowPos.y * 0.9);
+	backButton->setTextSize(22);
+	backButton->setText("Back");
 
 	resolutionBox = tgui::ComboBox::create();
 	resolutionBox->addItem("1920 x 1080");
@@ -32,7 +39,7 @@ void State_Settings::OnCreate()
 	resolutionBox->setSize(250, 50);
 	resolutionBox->setTextSize(20);
 	resolutionBox->setOrigin(0.5, 0.5);
-	resolutionBox->setPosition(windowPos.x * 0.5, windowPos.y * 0.5);
+	resolutionBox->setPosition(windowPos.x * 0.5, windowPos.y * 0.35);
 
 	resolutionLabel = tgui::Label::create();
 	resolutionLabel->setText("Game Resolution");
@@ -45,12 +52,39 @@ void State_Settings::OnCreate()
 	saveButton->setText("Save");
 	saveButton->setTextSize(22);
 	saveButton->setPosition(windowPos.x - 200, windowPos.y * 0.9);
+
+	volumeLabel = tgui::Label::create();
+	volumeLabel->setPosition(resolutionBox->getPosition().x, resolutionBox->getPosition().y + 110);
+	volumeLabel->setOrigin(0.5, 0.5);
+	volumeLabel->setTextSize(30);
+	volumeLabel->setText("Volume: 70%");
+
+	volumeSlider = tgui::Slider::create();
+	volumeSlider->setPosition(volumeLabel->getPosition().x, volumeLabel->getPosition().y + 70);
+	volumeSlider->setOrigin(0.5, 0.5);
+	volumeSlider->setMinimum(0);
+	volumeSlider->setMaximum(100);
+	volumeSlider->setValue(70);
+
+	volumeSlider->onValueChange([&](int n) { volumeLabel->setText("Volume: " + std::to_string(n) + "%");});
+	//volumeSlider->onFocus([&]() { sliderSoundTest.setVolume(volumeSlider->getValue()); sliderSoundTest.play(); });
+
+	//signals
+	backButton->onPress(&State_Settings::BackToMainMenu, this, nullptr);
 	saveButton->onPress(&State_Settings::SaveSettings, this);
 
-	gui->add(exitButton);
+	backButton->onPress([&]() { backButtonSound.play(); });
+	saveButton->onPress([&]() { buttonSound.play(); });
+
+	gui->add(backButton);
 	gui->add(saveButton);
 	gui->add(resolutionBox);
 	gui->add(resolutionLabel);
+	gui->add(volumeSlider);
+	gui->add(volumeLabel);
+
+	EventManager* evMgr = stateMgr->GetContext()->eventManager;
+	evMgr->AddCallback(StateType::Settings, "Key_Escape", &State_Settings::BackToMainMenu, this);
 }
 
 void State_Settings::OnDestroy()
@@ -59,31 +93,32 @@ void State_Settings::OnDestroy()
 
 void State_Settings::Activate()
 {
-	exitButton->setVisible(true);
+	backButton->setVisible(true);
 	saveButton->setVisible(true);
 	resolutionBox->setVisible(true);
 	resolutionLabel->setVisible(true);
+	volumeSlider->setVisible(true);
+	volumeLabel->setVisible(true);
 }
 
 void State_Settings::Deactivate()
 {
-	exitButton->setVisible(false);
+	backButton->setVisible(false);
 	saveButton->setVisible(false);
 	resolutionBox->setVisible(false);
 	resolutionLabel->setVisible(false);
+	volumeSlider->setVisible(false);
+	volumeLabel->setVisible(false);
 }
 
-void State_Settings::Update(const sf::Time& time)
-{
-
-}
+void State_Settings::Update(const sf::Time& time){}
 
 void State_Settings::Draw()
 {
 	gui->draw();
 }
 
-void State_Settings::BackToMainMenu()
+void State_Settings::BackToMainMenu(EventDetails* event)
 {
 	stateMgr->SwitchTo(StateType::MainMenu);
 }
@@ -91,14 +126,20 @@ void State_Settings::BackToMainMenu()
 void State_Settings::ChangedResolution()
 {
 	sf::Vector2u windowPos = window->GetRenderWindow()->getSize();
-	exitButton->setPosition(50, windowPos.y * 0.9);
-	resolutionBox->setPosition(windowPos.x * 0.5, windowPos.y * 0.5);
+	backButton->setPosition(50, windowPos.y * 0.9);
+	resolutionBox->setPosition(windowPos.x * 0.5, windowPos.y * 0.35);
 	resolutionLabel->setPosition(resolutionBox->getPosition().x, resolutionBox->getPosition().y - resolutionLabel->getSize().y - 70);
 	saveButton->setPosition(windowPos.x -200, windowPos.y * 0.9);
+	volumeLabel->setPosition(resolutionBox->getPosition().x, resolutionBox->getPosition().y + 110);
+	volumeSlider->setPosition(volumeLabel->getPosition().x, volumeLabel->getPosition().y + 70);
 }
 
 void State_Settings::SaveSettings()
 {
+	buttonSound.setVolume(volumeSlider->getValue());
+	backButtonSound.setVolume(volumeSlider->getValue());
+	stateMgr->GetContext()->generalVolume = volumeSlider->getValue();
+
 	if (resolutionBox->getSelectedItem() != stringRes) {
 		tgui::String tmp = resolutionBox->getSelectedItem();
 

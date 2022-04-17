@@ -38,9 +38,3 @@ void FlyingLog::Update(const sf::Time& time)
 		canBeDeleted = true;
 	}
 }
-
-
-bool FlyingLog::CanBeDeleted()
-{
-	return canBeDeleted;
-}
