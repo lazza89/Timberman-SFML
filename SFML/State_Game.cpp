@@ -32,6 +32,12 @@ void State_Game::OnCreate() {
 		cloudVector.push_back(std::make_unique<Cloud>(stateMgr));
 	}
 
+	stateMgr->GetContext()->textureManager->RequireResource("arrow");
+	arrowSprite.setTexture(*stateMgr->GetContext()->textureManager->GetResource("arrow"));
+	arrowSprite.setOrigin(arrowSprite.getLocalBounds().width * 0.5, arrowSprite.getLocalBounds().height * 0.5);
+	arrowSprite.setPosition(1920 * 0.5, 1080* 0.83);
+	arrowSprite.setScale(1.7, 1.7);
+
 	//background stuff
 	stateMgr->GetContext()->textureManager->RequireResource("background");
 	background.setTexture(*stateMgr->GetContext()->textureManager->GetResource("background"));
@@ -88,7 +94,13 @@ void State_Game::Draw() {
 	for (auto& itr : beeVector) {
 		itr->Draw();
 	}
-	score.Draw();
+
+	if (score.GetScore() == 0) {
+		window->draw(arrowSprite);
+	}
+	else {
+		score.Draw();
+	}
 }
 
 void State_Game::MainMenu(EventDetails* details) {

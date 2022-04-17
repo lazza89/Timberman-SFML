@@ -13,6 +13,7 @@ public:
 	void Update(const sf::Time& time);
 
 	void AddScore(int n);
+	unsigned int GetScore() { return score; };
 	bool isTimesUp();
 
 private:

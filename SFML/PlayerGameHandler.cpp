@@ -41,7 +41,6 @@ void PlayerGameHandler::ChopRight()
 	player.SetPosition(tree.GetBaseTreePos() + sf::Vector2f(200, -100), PlayerDirection::Right);
 	if (tree.GetFirstBranchDirection() == BranchDirection::Right && player.GetDirection() == PlayerDirection::Right) {
 		player.Dead();
-		std::cout << "dead" << std::endl;
 		isDead = true;
 	}
 	tree.ChopRight();
