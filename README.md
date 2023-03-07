@@ -12,6 +12,6 @@ The game is a TimberMan "Remake" created in C++ with [SFML](https://www.sfml-dev
 https://user-images.githubusercontent.com/83120620/223408323-9f18406e-2758-4373-ac5e-599696394ec8.mp4
 
 ## Screenshots
-![](SFML/ScreenShots/Screenshot_1.png)
-![](SFML/ScreenShots/Screenshot_2.png)
-![](SFML/ScreenShots/Screenshot_3.png)
+![](Timberman-SFML/ScreenShots/Screenshot_1.png)
+![](Timberman-SFML/ScreenShots/Screenshot_2.png)
+![](Timberman-SFML/ScreenShots/Screenshot_3.png)
