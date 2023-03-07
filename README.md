@@ -8,6 +8,9 @@ Il gioco è un "Remake" di TimberMan creato in C++ con le librerie [SFML](https:
 This Project/Game was created during my computer science studies at the University of Padua.
 The game is a TimberMan "Remake" created in C++ with [SFML](https://www.sfml-dev.org) and [TGUI](https://tgui.eu) libraries.
 
+## Video
+https://user-images.githubusercontent.com/83120620/223408323-9f18406e-2758-4373-ac5e-599696394ec8.mp4
+
 ## Screenshots
 ![](SFML/ScreenShots/Screenshot_1.png)
 ![](SFML/ScreenShots/Screenshot_2.png)
