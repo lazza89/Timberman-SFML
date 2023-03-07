@@ -1,6 +1,6 @@
 #include "Game.h"
 Game::Game() :
-	window("GANG", sf::Vector2u(1280, 720)), 
+	window("Timberman SFML", sf::Vector2u(1280, 720)), 
 	stateManager(&context),
 	soundManager(&audioManager)
 {
